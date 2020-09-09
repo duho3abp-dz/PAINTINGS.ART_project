@@ -5,16 +5,16 @@ const mainAutoSlider = ({
     sliderClass,
     slidesWrapClass,
     mailSrc,
-    femaleSrc
+    femaleSrc,
+    slideHeight
 }) => {
 
     const slider = document.querySelector(sliderClass),
           slidesWrap = slider.querySelector(slidesWrapClass),
-          quantitySlides = slidesWrap.querySelectorAll(slidesClass).length,
-          slideHeight = getComputedStyle(slidesWrap.querySelector(slidesClass)).height;
+          quantitySlides = slidesWrap.querySelectorAll(slidesClass).length;
 
     //-----------------STATE-----------------
-    
+
     let position = 1,
         height = position * 100,
         gender = true;
