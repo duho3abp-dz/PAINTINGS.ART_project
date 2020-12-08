@@ -3,7 +3,7 @@
 import mainAutoSlider from './modules/mainAutoSlider';
 import modal from './modules/modal';
 
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
     mainAutoSlider({
         slidesClass: '.main-slider-item',
@@ -11,7 +11,8 @@ window.addEventListener('load', () => {
         slidesWrapClass: '.main-slider',
         mailSrc: 'assets/img/main-1.png',
         femaleSrc: 'assets/img/main-2.png',
-        slideHeight: '669px'
+        vertical: true
+        // slideHeight: '669px'
     });
 
     modal({

@@ -1554,14 +1554,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-window.addEventListener('load', function () {
+document.addEventListener('DOMContentLoaded', function () {
   Object(_modules_mainAutoSlider__WEBPACK_IMPORTED_MODULE_0__["default"])({
     slidesClass: '.main-slider-item',
     sliderClass: '.auto-slider',
     slidesWrapClass: '.main-slider',
     mailSrc: 'assets/img/main-1.png',
     femaleSrc: 'assets/img/main-2.png',
-    slideHeight: '669px'
+    vertical: true // slideHeight: '669px'
+
   });
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])({
     btnsClass: '.button-design',
@@ -1596,14 +1597,18 @@ var mainAutoSlider = function mainAutoSlider(_ref) {
       slidesWrapClass = _ref.slidesWrapClass,
       mailSrc = _ref.mailSrc,
       femaleSrc = _ref.femaleSrc,
-      slideHeight = _ref.slideHeight;
-  var slider = document.querySelector(sliderClass),
-      slidesWrap = slider.querySelector(slidesWrapClass),
-      quantitySlides = slidesWrap.querySelectorAll(slidesClass).length; //-----------------STATE-----------------
+      vertical = _ref.vertical;
+  var slider = document.querySelector(sliderClass);
+  var slidesWrap = slider.querySelector(slidesWrapClass);
+  var slides = slidesWrap.querySelectorAll(slidesClass);
+  var quantitySlides = slides.length;
+  var slideHeight = slides[0].clientHeight + 'px';
+  var slideWidth = slides[0].clientWidth;
+  if (!slider || !slidesWrap || !quantitySlides) return; //-----------------STATE-----------------
 
-  var position = 1,
-      height = position * 100,
-      gender = true; //-----------------LOGIC-----------------
+  var position = 1;
+  var height = position * 100;
+  var gender = true; //-----------------LOGIC-----------------
 
   var resetOptions = function resetOptions(wrap) {
     position = 1;
@@ -1649,14 +1654,18 @@ var mainAutoSlider = function mainAutoSlider(_ref) {
   var startAnimateSlider = function startAnimateSlider(wrap) {
     position--;
     animateSlider(wrap);
+  };
+
+  var setStartStyles = function setStartStyles() {
+    slider.style.height = slideHeight;
+    slider.style.overflow = 'hidden';
+    slidesWrap.style.position = 'absolute';
+    slidesWrap.style.top = "-".concat(height, "%");
+    slidesWrap.style.left = '0%';
   }; //-----------------STYLE-----------------
 
 
-  slider.style.height = slideHeight;
-  slider.style.overflow = 'hidden';
-  slidesWrap.style.position = 'absolute';
-  slidesWrap.style.top = "-".concat(height, "%");
-  slidesWrap.style.left = '0%'; //-----------------START-ANIMATE-----------------
+  if (vertical) setStartStyles(); //-----------------START-ANIMATE-----------------
 
   setTimeout(function () {
     return startAnimateSlider(slidesWrap);

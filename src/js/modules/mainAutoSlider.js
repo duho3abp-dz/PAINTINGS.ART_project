@@ -6,18 +6,27 @@ const mainAutoSlider = ({
     slidesWrapClass,
     mailSrc,
     femaleSrc,
-    slideHeight
+    vertical
 }) => {
 
-    const slider = document.querySelector(sliderClass),
-          slidesWrap = slider.querySelector(slidesWrapClass),
-          quantitySlides = slidesWrap.querySelectorAll(slidesClass).length;
+    const slider = document.querySelector(sliderClass);
+    const slidesWrap = slider.querySelector(slidesWrapClass);
+    const slides = slidesWrap.querySelectorAll(slidesClass);
+    const quantitySlides = slides.length;
+    const slideHeight = slides[0].clientHeight + 'px';
+    const slideWidth = slides[0].clientWidth;
+
+    if (
+        !slider ||
+        !slidesWrap ||
+        !quantitySlides
+    ) return;
 
     //-----------------STATE-----------------
 
-    let position = 1,
-        height = position * 100,
-        gender = true;
+    let position = 1;
+    let height = position * 100;
+    let gender = true;
 
     //-----------------LOGIC-----------------
 
@@ -64,14 +73,18 @@ const mainAutoSlider = ({
         animateSlider(wrap);
     };
 
+    const setStartStyles = () => {
+        slider.style.height = slideHeight;
+        slider.style.overflow = 'hidden';
+        slidesWrap.style.position = 'absolute';
+        slidesWrap.style.top = `-${height}%`;
+        slidesWrap.style.left = '0%';
+    }
+
     //-----------------STYLE-----------------
 
-    slider.style.height = slideHeight;
-    slider.style.overflow = 'hidden';
-    slidesWrap.style.position = 'absolute';
-    slidesWrap.style.top = `-${height}%`;
-    slidesWrap.style.left = '0%';
-
+    if (vertical) setStartStyles();
+    
     //-----------------START-ANIMATE-----------------
 
     setTimeout(() => startAnimateSlider(slidesWrap), 3000);
