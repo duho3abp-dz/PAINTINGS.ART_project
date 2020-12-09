@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
         mailSrc: 'assets/img/main-1.png',
         femaleSrc: 'assets/img/main-2.png',
         vertical: true
-        // slideHeight: '669px'
     });
 
     modal({
@@ -23,6 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
     modal({
         btnsClass: '.button-consultation',
         modalClass: '.popup-consultation'
+    });
+
+    modal({
+        btnsClass: '[data-present-open]',
+        modalClass: '.popup-gift',
+        removeButtonAfterOpening: true
     });
 
 });

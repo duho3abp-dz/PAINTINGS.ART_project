@@ -1561,8 +1561,7 @@ document.addEventListener('DOMContentLoaded', function () {
     slidesWrapClass: '.main-slider',
     mailSrc: 'assets/img/main-1.png',
     femaleSrc: 'assets/img/main-2.png',
-    vertical: true // slideHeight: '669px'
-
+    vertical: true
   });
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])({
     btnsClass: '.button-design',
@@ -1571,6 +1570,11 @@ document.addEventListener('DOMContentLoaded', function () {
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])({
     btnsClass: '.button-consultation',
     modalClass: '.popup-consultation'
+  });
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    btnsClass: '[data-present-open]',
+    modalClass: '.popup-gift',
+    removeButtonAfterOpening: true
   });
 });
 
@@ -1694,11 +1698,13 @@ __webpack_require__.r(__webpack_exports__);
 var modal = function modal(_ref) {
   var btnsClass = _ref.btnsClass,
       modalClass = _ref.modalClass,
+      removeButtonAfterOpening = _ref.removeButtonAfterOpening,
       _ref$closeBtnsClass = _ref.closeBtnsClass,
       closeBtnsClass = _ref$closeBtnsClass === void 0 ? '.popup-close' : _ref$closeBtnsClass;
-  var btns = document.querySelectorAll(btnsClass),
-      modal = document.querySelector(modalClass),
-      closeBtns = document.querySelectorAll(closeBtnsClass);
+  var btns = document.querySelectorAll(btnsClass);
+  var modal = document.querySelector(modalClass);
+  var closeBtns = document.querySelectorAll(closeBtnsClass);
+  if (!btns.length || !modal || !closeBtns) return;
 
   var openModal = function openModal(elem) {
     elem.style.display = 'flex';
@@ -1712,7 +1718,8 @@ var modal = function modal(_ref) {
 
   btns.forEach(function (btn) {
     return btn.addEventListener('click', function () {
-      return openModal(modal);
+      openModal(modal);
+      if (removeButtonAfterOpening) btn.style.display = 'none';
     });
   });
   closeBtns.forEach(function (closeBtn) {
@@ -1721,9 +1728,7 @@ var modal = function modal(_ref) {
     });
   });
   modal.addEventListener('click', function (e) {
-    if (e.target === modal) {
-      closeModal(modal);
-    }
+    if (e.target === modal) closeModal(modal);
   });
 };
 
