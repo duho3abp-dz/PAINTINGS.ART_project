@@ -357,6 +357,11 @@ h4 {
   margin-bottom: 7rem;
 }
 
+.auto-slider {
+  /* overflow: hidden; */
+  border: 1px solid gray;
+}
+
 .main-slider-btn {
   position: absolute;
   top: 50%;
