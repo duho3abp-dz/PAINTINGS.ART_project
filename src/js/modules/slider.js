@@ -43,7 +43,9 @@ const slider = ({
         createSlide({slideClass, body, direction});
     };
 
-    const processingFirstSlide = () => {};
+    const processingFirstSlide = () => {
+        
+    };
 
     const startAnimateSlider = () => {
         setInterval(() => {
