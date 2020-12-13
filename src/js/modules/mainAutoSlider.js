@@ -92,3 +92,12 @@ const mainAutoSlider = ({
 };
 
 export default mainAutoSlider;
+
+// mainAutoSlider({
+//     slidesClass: '.main-slider-item',
+//     sliderClass: '.auto-slider',
+//     slidesWrapClass: '.main-slider',
+//     mailSrc: 'assets/img/main-1.png',
+//     femaleSrc: 'assets/img/main-2.png',
+//     vertical: true
+// });

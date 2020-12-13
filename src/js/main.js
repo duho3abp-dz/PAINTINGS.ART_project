@@ -10,18 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
         frameIdentifier: '[data-main-slider-frame]',
         wrapIdentifier: '[data-main-slider-wrap]',
         verticalSlide: true,
-        directionTurningSlides: 'next',
-        duration: 1000
+        directionTurningSlides: 'prev'
     });
-
-    // mainAutoSlider({
-    //     slidesClass: '.main-slider-item',
-    //     sliderClass: '.auto-slider',
-    //     slidesWrapClass: '.main-slider',
-    //     mailSrc: 'assets/img/main-1.png',
-    //     femaleSrc: 'assets/img/main-2.png',
-    //     vertical: true
-    // });
 
     modal({
         btnsClass: '.button-design',

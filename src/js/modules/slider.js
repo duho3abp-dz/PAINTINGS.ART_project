@@ -4,8 +4,9 @@ const slider = ({
     frameIdentifier,
     wrapIdentifier,
     verticalSlide,
-    directionTurningSlides,
-    duration,
+    directionTurningSlides = 'next',
+    transitionTime = 300,
+    duration = 3000,
     startSlideNumber = 1
 }) => {
     const frame = document.querySelector(frameIdentifier);
@@ -16,6 +17,7 @@ const slider = ({
     const slides = wrap.children;
     const quantitySlides = slides.length;
     const translate = verticalSlide ? 'translateY' : 'translateX' ;
+    const transition = `all ${transitionTime}ms ease`;
 
     let slideNumber = startSlideNumber;
 
@@ -35,16 +37,40 @@ const slider = ({
             body: slides[quantitySlides - 1].innerHTML,
             direction: 'prev'
         });
-
+        wrap.style.transition = transition;
         changeSlide();
     };
 
     const processingLastSlide = () => {
-        createSlide({slideClass, body, direction});
+        wrap.style.transition = '0s';
+
+        slideNumber--;
+        createSlide({
+            slideClass: slides[1].classList, 
+            body: slides[1].innerHTML,
+            direction: 'next'
+        });
+        slides[0].remove();
+        changeSlide();
+        console.log(slideNumber);
+
+        setTimeout(() => wrap.style.transition = transition, 100);
     };
 
     const processingFirstSlide = () => {
+        wrap.style.transition = '0s';
+
+        slideNumber++;
+        createSlide({
+            slideClass: slides[quantitySlides - 1].classList, 
+            body: slides[quantitySlides - 1].innerHTML,
+            direction: 'prev'
+        });
+        slides[slides.length - 1].remove();
+        changeSlide();
+        console.log(slideNumber);
         
+        setTimeout(() => wrap.style.transition = transition, 100);
     };
 
     const startAnimateSlider = () => {
@@ -53,12 +79,17 @@ const slider = ({
             changeSlide();
             console.log(slideNumber);
 
-            if (slideNumber >= quantitySlides) processingLastSlide();
-            if (slideNumber <= 0) processingLastSlide();
+            setTimeout(() => {
+                if (slideNumber >= quantitySlides) processingLastSlide();
+                if (slideNumber <= 0) processingFirstSlide();
+            }, transitionTime + 1);
         },duration);
     };
 
-    if (verticalSlide) wrap.style.height = `${slides[0].clientHeight}px`;
+    if (verticalSlide) {
+        frame.style.height = `${slides[0].clientHeight}px`;
+        wrap.style.height = `${slides[0].clientHeight}px`;
+    }
 
     startPosition();
     startAnimateSlider();

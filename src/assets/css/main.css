@@ -358,8 +358,11 @@ h4 {
 }
 
 .auto-slider {
-  /* overflow: hidden; */
-  border: 1px solid gray;
+  overflow: hidden;
+}
+
+.main-slider {
+  /* transition: all .3s ease; */
 }
 
 .main-slider-btn {

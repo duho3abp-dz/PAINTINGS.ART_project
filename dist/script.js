@@ -2132,17 +2132,8 @@ document.addEventListener('DOMContentLoaded', function () {
     frameIdentifier: '[data-main-slider-frame]',
     wrapIdentifier: '[data-main-slider-wrap]',
     verticalSlide: true,
-    directionTurningSlides: 'next',
-    duration: 1000
-  }); // mainAutoSlider({
-  //     slidesClass: '.main-slider-item',
-  //     sliderClass: '.auto-slider',
-  //     slidesWrapClass: '.main-slider',
-  //     mailSrc: 'assets/img/main-1.png',
-  //     femaleSrc: 'assets/img/main-2.png',
-  //     vertical: true
-  // });
-
+    directionTurningSlides: 'prev'
+  });
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])({
     btnsClass: '.button-design',
     modalClass: '.popup-design'
@@ -2256,7 +2247,14 @@ var mainAutoSlider = function mainAutoSlider(_ref) {
   }, 3000);
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (mainAutoSlider);
+/* harmony default export */ __webpack_exports__["default"] = (mainAutoSlider); // mainAutoSlider({
+//     slidesClass: '.main-slider-item',
+//     sliderClass: '.auto-slider',
+//     slidesWrapClass: '.main-slider',
+//     mailSrc: 'assets/img/main-1.png',
+//     femaleSrc: 'assets/img/main-2.png',
+//     vertical: true
+// });
 
 /***/ }),
 
@@ -2335,8 +2333,12 @@ var slider = function slider(_ref) {
   var frameIdentifier = _ref.frameIdentifier,
       wrapIdentifier = _ref.wrapIdentifier,
       verticalSlide = _ref.verticalSlide,
-      directionTurningSlides = _ref.directionTurningSlides,
-      duration = _ref.duration,
+      _ref$directionTurning = _ref.directionTurningSlides,
+      directionTurningSlides = _ref$directionTurning === void 0 ? 'next' : _ref$directionTurning,
+      _ref$transitionTime = _ref.transitionTime,
+      transitionTime = _ref$transitionTime === void 0 ? 300 : _ref$transitionTime,
+      _ref$duration = _ref.duration,
+      duration = _ref$duration === void 0 ? 3000 : _ref$duration,
       _ref$startSlideNumber = _ref.startSlideNumber,
       startSlideNumber = _ref$startSlideNumber === void 0 ? 1 : _ref$startSlideNumber;
   var frame = document.querySelector(frameIdentifier);
@@ -2345,6 +2347,7 @@ var slider = function slider(_ref) {
   var slides = wrap.children;
   var quantitySlides = slides.length;
   var translate = verticalSlide ? 'translateY' : 'translateX';
+  var transition = "all ".concat(transitionTime, "ms ease");
   var slideNumber = startSlideNumber;
 
   var createSlide = function createSlide(_ref2) {
@@ -2368,30 +2371,59 @@ var slider = function slider(_ref) {
       body: slides[quantitySlides - 1].innerHTML,
       direction: 'prev'
     });
+    wrap.style.transition = transition;
     changeSlide();
   };
 
   var processingLastSlide = function processingLastSlide() {
+    wrap.style.transition = '0s';
+    slideNumber--;
     createSlide({
-      slideClass: slideClass,
-      body: body,
-      direction: direction
+      slideClass: slides[1].classList,
+      body: slides[1].innerHTML,
+      direction: 'next'
     });
+    slides[0].remove();
+    changeSlide();
+    console.log(slideNumber);
+    setTimeout(function () {
+      return wrap.style.transition = transition;
+    }, 100);
   };
 
-  var processingFirstSlide = function processingFirstSlide() {};
+  var processingFirstSlide = function processingFirstSlide() {
+    wrap.style.transition = '0s';
+    slideNumber++;
+    createSlide({
+      slideClass: slides[quantitySlides - 1].classList,
+      body: slides[quantitySlides - 1].innerHTML,
+      direction: 'prev'
+    });
+    slides[slides.length - 1].remove();
+    changeSlide();
+    console.log(slideNumber);
+    setTimeout(function () {
+      return wrap.style.transition = transition;
+    }, 100);
+  };
 
   var startAnimateSlider = function startAnimateSlider() {
     setInterval(function () {
-      slideNumber = directionTurningSlides === 'next' ? slideNumber + 1 : slideNumber - 1; // changeSlide();
-
+      slideNumber = directionTurningSlides === 'next' ? slideNumber + 1 : slideNumber - 1;
+      changeSlide();
       console.log(slideNumber);
-      if (slideNumber >= quantitySlides) processingLastSlide();
-      if (slideNumber <= 0) processingLastSlide();
+      setTimeout(function () {
+        if (slideNumber >= quantitySlides) processingLastSlide();
+        if (slideNumber <= 0) processingFirstSlide();
+      }, transitionTime + 1);
     }, duration);
   };
 
-  if (verticalSlide) wrap.style.height = "".concat(slides[0].clientHeight, "px");
+  if (verticalSlide) {
+    frame.style.height = "".concat(slides[0].clientHeight, "px");
+    wrap.style.height = "".concat(slides[0].clientHeight, "px");
+  }
+
   startPosition();
   startAnimateSlider();
 };
