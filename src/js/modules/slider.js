@@ -5,8 +5,8 @@ const slider = ({
     wrapIdentifier,
     verticalSlide,
     directionTurningSlides = 'next',
-    transitionTime = 300,
-    duration = 3000,
+    transitionTime = 1000,
+    duration = 4000,
     startSlideNumber = 1
 }) => {
     const frame = document.querySelector(frameIdentifier);
@@ -37,39 +37,22 @@ const slider = ({
             body: slides[quantitySlides - 1].innerHTML,
             direction: 'prev'
         });
-        wrap.style.transition = transition;
         changeSlide();
+        setTimeout(() => wrap.style.transition = transition, transitionTime);
     };
 
-    const processingLastSlide = () => {
+    const processingSlide = (backwards) => {
         wrap.style.transition = '0s';
 
-        slideNumber--;
+        slideNumber = !backwards ?  slideNumber - 1 : slideNumber + 1;
         createSlide({
-            slideClass: slides[1].classList, 
-            body: slides[1].innerHTML,
-            direction: 'next'
+            slideClass: !backwards ? slides[1].classList : slides[quantitySlides - 1].classList, 
+            body: !backwards ? slides[1].innerHTML : slides[quantitySlides - 1].innerHTML,
+            direction: !backwards ? 'next' : 'prev'
         });
-        slides[0].remove();
+        slides[!backwards ? 0 : slides.length - 1].remove();
         changeSlide();
-        console.log(slideNumber);
 
-        setTimeout(() => wrap.style.transition = transition, 100);
-    };
-
-    const processingFirstSlide = () => {
-        wrap.style.transition = '0s';
-
-        slideNumber++;
-        createSlide({
-            slideClass: slides[quantitySlides - 1].classList, 
-            body: slides[quantitySlides - 1].innerHTML,
-            direction: 'prev'
-        });
-        slides[slides.length - 1].remove();
-        changeSlide();
-        console.log(slideNumber);
-        
         setTimeout(() => wrap.style.transition = transition, 100);
     };
 
@@ -80,8 +63,8 @@ const slider = ({
             console.log(slideNumber);
 
             setTimeout(() => {
-                if (slideNumber >= quantitySlides) processingLastSlide();
-                if (slideNumber <= 0) processingFirstSlide();
+                if (slideNumber >= quantitySlides) processingSlide();
+                if (slideNumber <= 0) processingSlide(true);
             }, transitionTime + 1);
         },duration);
     };

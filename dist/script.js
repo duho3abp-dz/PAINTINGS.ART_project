@@ -2336,9 +2336,9 @@ var slider = function slider(_ref) {
       _ref$directionTurning = _ref.directionTurningSlides,
       directionTurningSlides = _ref$directionTurning === void 0 ? 'next' : _ref$directionTurning,
       _ref$transitionTime = _ref.transitionTime,
-      transitionTime = _ref$transitionTime === void 0 ? 300 : _ref$transitionTime,
+      transitionTime = _ref$transitionTime === void 0 ? 1000 : _ref$transitionTime,
       _ref$duration = _ref.duration,
-      duration = _ref$duration === void 0 ? 3000 : _ref$duration,
+      duration = _ref$duration === void 0 ? 4000 : _ref$duration,
       _ref$startSlideNumber = _ref.startSlideNumber,
       startSlideNumber = _ref$startSlideNumber === void 0 ? 1 : _ref$startSlideNumber;
   var frame = document.querySelector(frameIdentifier);
@@ -2371,37 +2371,22 @@ var slider = function slider(_ref) {
       body: slides[quantitySlides - 1].innerHTML,
       direction: 'prev'
     });
-    wrap.style.transition = transition;
     changeSlide();
-  };
-
-  var processingLastSlide = function processingLastSlide() {
-    wrap.style.transition = '0s';
-    slideNumber--;
-    createSlide({
-      slideClass: slides[1].classList,
-      body: slides[1].innerHTML,
-      direction: 'next'
-    });
-    slides[0].remove();
-    changeSlide();
-    console.log(slideNumber);
     setTimeout(function () {
       return wrap.style.transition = transition;
-    }, 100);
+    }, transitionTime);
   };
 
-  var processingFirstSlide = function processingFirstSlide() {
+  var processingSlide = function processingSlide(backwards) {
     wrap.style.transition = '0s';
-    slideNumber++;
+    slideNumber = !backwards ? slideNumber - 1 : slideNumber + 1;
     createSlide({
-      slideClass: slides[quantitySlides - 1].classList,
-      body: slides[quantitySlides - 1].innerHTML,
-      direction: 'prev'
+      slideClass: !backwards ? slides[1].classList : slides[quantitySlides - 1].classList,
+      body: !backwards ? slides[1].innerHTML : slides[quantitySlides - 1].innerHTML,
+      direction: !backwards ? 'next' : 'prev'
     });
-    slides[slides.length - 1].remove();
+    slides[!backwards ? 0 : slides.length - 1].remove();
     changeSlide();
-    console.log(slideNumber);
     setTimeout(function () {
       return wrap.style.transition = transition;
     }, 100);
@@ -2413,8 +2398,8 @@ var slider = function slider(_ref) {
       changeSlide();
       console.log(slideNumber);
       setTimeout(function () {
-        if (slideNumber >= quantitySlides) processingLastSlide();
-        if (slideNumber <= 0) processingFirstSlide();
+        if (slideNumber >= quantitySlides) processingSlide();
+        if (slideNumber <= 0) processingSlide(true);
       }, transitionTime + 1);
     }, duration);
   };
