@@ -18,6 +18,7 @@ const slider = ({
     const quantitySlides = slides.length;
     const translate = verticalSlide ? 'translateY' : 'translateX' ;
     const transition = `all ${transitionTime}ms ease`;
+    const widthSlide = !verticalSlide ? slides[0].clientWidth : null ;
 
     let slideNumber = startSlideNumber;
 
@@ -29,7 +30,10 @@ const slider = ({
         if (direction === 'next') wrap.append(slide);
     };
 
-    const changeSlide = () => wrap.style.transform = `${translate}(-${slideNumber}00%)`;
+    const changeSlide = () => {
+        const result = verticalSlide ? `${slideNumber}00%` : `${slideNumber * widthSlide}px` ;
+        wrap.style.transform = `${translate}(-${result})`
+    };
 
     const startPosition = () => {
         createSlide({

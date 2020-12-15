@@ -2134,6 +2134,10 @@ document.addEventListener('DOMContentLoaded', function () {
     verticalSlide: true,
     directionTurningSlides: 'prev'
   });
+  Object(_modules_slider__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    frameIdentifier: '[data-slider-frame]',
+    wrapIdentifier: '[data-slider-wrap]'
+  });
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])({
     btnsClass: '.button-design',
     modalClass: '.popup-design'
@@ -2348,6 +2352,7 @@ var slider = function slider(_ref) {
   var quantitySlides = slides.length;
   var translate = verticalSlide ? 'translateY' : 'translateX';
   var transition = "all ".concat(transitionTime, "ms ease");
+  var widthSlide = !verticalSlide ? slides[0].clientWidth : null;
   var slideNumber = startSlideNumber;
 
   var createSlide = function createSlide(_ref2) {
@@ -2362,7 +2367,8 @@ var slider = function slider(_ref) {
   };
 
   var changeSlide = function changeSlide() {
-    return wrap.style.transform = "".concat(translate, "(-").concat(slideNumber, "00%)");
+    var result = verticalSlide ? "".concat(slideNumber, "00%") : "".concat(slideNumber * widthSlide, "px");
+    wrap.style.transform = "".concat(translate, "(-").concat(result, ")");
   };
 
   var startPosition = function startPosition() {

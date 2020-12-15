@@ -1591,14 +1591,23 @@ pre code {
   .container {
     width: 750px;
   }
+  .feedback-slider-item {
+    width: 750px;
+  }
 }
 @media (min-width: 992px) {
   .container {
     width: 970px;
   }
+  .feedback-slider-item {
+    width: 970px;
+  }
 }
 @media (min-width: 1200px) {
   .container {
+    width: 1170px;
+  }
+  .feedback-slider-item {
     width: 1170px;
   }
 }

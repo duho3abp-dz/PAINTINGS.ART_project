@@ -843,12 +843,28 @@ h4 {
   right: -10rem;
 }
 .feedback {
+  width: 100%;
+  position: relative;
   background-color: #f7e7e6;
   padding: 9rem 0;
 }
+
+.slider-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.feedback-slider {
+  width: fit-content;
+  display: flex;
+}
+
 .feedback-slider-item {
+  width: 970px;
+  display: flex;
   padding-bottom: 5rem;
 }
+
 .feedback-block {
   position: relative;
 }

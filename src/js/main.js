@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
         directionTurningSlides: 'prev'
     });
 
+    slider({
+        frameIdentifier: '[data-slider-frame]',
+        wrapIdentifier: '[data-slider-wrap]'
+    });
+
     modal({
         btnsClass: '.button-design',
         modalClass: '.popup-design'
