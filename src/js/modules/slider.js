@@ -64,7 +64,7 @@ const slider = ({
         setInterval(() => {
             slideNumber = directionTurningSlides === 'next' ? slideNumber + 1 : slideNumber - 1 ;
             changeSlide();
-            console.log(slideNumber);
+            // console.log(slideNumber);
 
             setTimeout(() => {
                 if (slideNumber >= quantitySlides) processingSlide();
