@@ -4,6 +4,8 @@ const slider = ({
     frameIdentifier,
     wrapIdentifier,
     verticalSlide,
+    prevButtonIdentifier,
+    nextButtonIdentifier,
     directionTurningSlides = 'next',
     transitionTime = 1000,
     duration = 4000,
@@ -11,6 +13,8 @@ const slider = ({
 }) => {
     const frame = document.querySelector(frameIdentifier);
     const wrap = document.querySelector(wrapIdentifier);
+    const prevButton = prevButtonIdentifier ? document.querySelector(prevButtonIdentifier) : null ;
+    const nextButton = nextButtonIdentifier ? document.querySelector(nextButtonIdentifier) : null ;
 
     if (!frame || !wrap) return;
 
@@ -21,6 +25,7 @@ const slider = ({
     const widthSlide = !verticalSlide ? slides[0].clientWidth : null ;
 
     let slideNumber = startSlideNumber;
+    let change = true;
 
     const createSlide = ({slideClass, body, direction}) => {
         const slide = document.createElement('div');
@@ -62,15 +67,38 @@ const slider = ({
 
     const startAnimateSlider = () => {
         setInterval(() => {
-            slideNumber = directionTurningSlides === 'next' ? slideNumber + 1 : slideNumber - 1 ;
-            changeSlide();
-            // console.log(slideNumber);
+            if (change) {
+                change = false;
+                slideNumber = directionTurningSlides === 'next' ? slideNumber + 1 : slideNumber - 1 ;
+                changeSlide();
+                // console.log(slideNumber);
+    
+                setTimeout(() => {
+                    if (slideNumber >= quantitySlides) processingSlide();
+                    if (slideNumber <= 0) processingSlide(true);
+                    change = true;
+                }, transitionTime + 1);
+            }
+        },duration);
+    };
 
+    const clickEvent = (key) => {
+        if (change) {
+            change = false;
+            slideNumber = key === 'next' ? slideNumber + 1 : slideNumber - 1 ;
+            changeSlide();
+    
             setTimeout(() => {
                 if (slideNumber >= quantitySlides) processingSlide();
                 if (slideNumber <= 0) processingSlide(true);
+                change = true;
             }, transitionTime + 1);
-        },duration);
+        }
+    }
+
+    const addClickEventOnTheButton = () => {
+        nextButton.addEventListener('click', e => clickEvent('next'));
+        prevButton.addEventListener('click', e => clickEvent('prev'));
     };
 
     if (verticalSlide) {
@@ -80,6 +108,8 @@ const slider = ({
 
     startPosition();
     startAnimateSlider();
+    
+    if (prevButton && nextButton) addClickEventOnTheButton();
 };
 
 export default slider;

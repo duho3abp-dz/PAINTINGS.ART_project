@@ -2136,7 +2136,9 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   Object(_modules_slider__WEBPACK_IMPORTED_MODULE_1__["default"])({
     frameIdentifier: '[data-slider-frame]',
-    wrapIdentifier: '[data-slider-wrap]'
+    wrapIdentifier: '[data-slider-wrap]',
+    prevButtonIdentifier: '[data-slider-button-prev]',
+    nextButtonIdentifier: '[data-slider-button-next]'
   });
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])({
     btnsClass: '.button-design',
@@ -2337,6 +2339,8 @@ var slider = function slider(_ref) {
   var frameIdentifier = _ref.frameIdentifier,
       wrapIdentifier = _ref.wrapIdentifier,
       verticalSlide = _ref.verticalSlide,
+      prevButtonIdentifier = _ref.prevButtonIdentifier,
+      nextButtonIdentifier = _ref.nextButtonIdentifier,
       _ref$directionTurning = _ref.directionTurningSlides,
       directionTurningSlides = _ref$directionTurning === void 0 ? 'next' : _ref$directionTurning,
       _ref$transitionTime = _ref.transitionTime,
@@ -2347,6 +2351,8 @@ var slider = function slider(_ref) {
       startSlideNumber = _ref$startSlideNumber === void 0 ? 1 : _ref$startSlideNumber;
   var frame = document.querySelector(frameIdentifier);
   var wrap = document.querySelector(wrapIdentifier);
+  var prevButton = prevButtonIdentifier ? document.querySelector(prevButtonIdentifier) : null;
+  var nextButton = nextButtonIdentifier ? document.querySelector(nextButtonIdentifier) : null;
   if (!frame || !wrap) return;
   var slides = wrap.children;
   var quantitySlides = slides.length;
@@ -2354,6 +2360,7 @@ var slider = function slider(_ref) {
   var transition = "all ".concat(transitionTime, "ms ease");
   var widthSlide = !verticalSlide ? slides[0].clientWidth : null;
   var slideNumber = startSlideNumber;
+  var change = true;
 
   var createSlide = function createSlide(_ref2) {
     var slideClass = _ref2.slideClass,
@@ -2400,14 +2407,40 @@ var slider = function slider(_ref) {
 
   var startAnimateSlider = function startAnimateSlider() {
     setInterval(function () {
-      slideNumber = directionTurningSlides === 'next' ? slideNumber + 1 : slideNumber - 1;
+      if (change) {
+        change = false;
+        slideNumber = directionTurningSlides === 'next' ? slideNumber + 1 : slideNumber - 1;
+        changeSlide(); // console.log(slideNumber);
+
+        setTimeout(function () {
+          if (slideNumber >= quantitySlides) processingSlide();
+          if (slideNumber <= 0) processingSlide(true);
+          change = true;
+        }, transitionTime + 1);
+      }
+    }, duration);
+  };
+
+  var clickEvent = function clickEvent(key) {
+    if (change) {
+      change = false;
+      slideNumber = key === 'next' ? slideNumber + 1 : slideNumber - 1;
       changeSlide();
-      console.log(slideNumber);
       setTimeout(function () {
         if (slideNumber >= quantitySlides) processingSlide();
         if (slideNumber <= 0) processingSlide(true);
+        change = true;
       }, transitionTime + 1);
-    }, duration);
+    }
+  };
+
+  var addClickEventOnTheButton = function addClickEventOnTheButton() {
+    nextButton.addEventListener('click', function (e) {
+      return clickEvent('next');
+    });
+    prevButton.addEventListener('click', function (e) {
+      return clickEvent('prev');
+    });
   };
 
   if (verticalSlide) {
@@ -2417,6 +2450,7 @@ var slider = function slider(_ref) {
 
   startPosition();
   startAnimateSlider();
+  if (prevButton && nextButton) addClickEventOnTheButton();
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (slider);

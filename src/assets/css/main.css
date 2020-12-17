@@ -860,7 +860,7 @@ h4 {
 }
 
 .feedback-slider-item {
-  width: 970px;
+  /* width: 970px; */
   display: flex;
   padding-bottom: 5rem;
 }
