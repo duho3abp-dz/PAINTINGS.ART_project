@@ -2138,7 +2138,8 @@ document.addEventListener('DOMContentLoaded', function () {
     frameIdentifier: '[data-slider-frame]',
     wrapIdentifier: '[data-slider-wrap]',
     prevButtonIdentifier: '[data-slider-button-prev]',
-    nextButtonIdentifier: '[data-slider-button-next]'
+    nextButtonIdentifier: '[data-slider-button-next]',
+    duration: 6000
   });
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])({
     btnsClass: '.button-design',
@@ -2401,8 +2402,20 @@ var slider = function slider(_ref) {
     slides[!backwards ? 0 : slides.length - 1].remove();
     changeSlide();
     setTimeout(function () {
-      return wrap.style.transition = transition;
+      wrap.style.transition = transition;
+      change = true;
     }, 100);
+  };
+
+  var changeAndCheckSlide = function changeAndCheckSlide() {
+    changeSlide();
+    setTimeout(function () {
+      if (slideNumber >= quantitySlides) {
+        processingSlide();
+      } else if (slideNumber <= 0) {
+        processingSlide(true);
+      } else change = true;
+    }, transitionTime + 1);
   };
 
   var startAnimateSlider = function startAnimateSlider() {
@@ -2410,13 +2423,7 @@ var slider = function slider(_ref) {
       if (change) {
         change = false;
         slideNumber = directionTurningSlides === 'next' ? slideNumber + 1 : slideNumber - 1;
-        changeSlide(); // console.log(slideNumber);
-
-        setTimeout(function () {
-          if (slideNumber >= quantitySlides) processingSlide();
-          if (slideNumber <= 0) processingSlide(true);
-          change = true;
-        }, transitionTime + 1);
+        changeAndCheckSlide();
       }
     }, duration);
   };
@@ -2425,12 +2432,7 @@ var slider = function slider(_ref) {
     if (change) {
       change = false;
       slideNumber = key === 'next' ? slideNumber + 1 : slideNumber - 1;
-      changeSlide();
-      setTimeout(function () {
-        if (slideNumber >= quantitySlides) processingSlide();
-        if (slideNumber <= 0) processingSlide(true);
-        change = true;
-      }, transitionTime + 1);
+      changeAndCheckSlide();
     }
   };
 

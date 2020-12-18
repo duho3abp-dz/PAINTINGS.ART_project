@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
         frameIdentifier: '[data-slider-frame]',
         wrapIdentifier: '[data-slider-wrap]',
         prevButtonIdentifier: '[data-slider-button-prev]',
-        nextButtonIdentifier: '[data-slider-button-next]'
+        nextButtonIdentifier: '[data-slider-button-next]',
+        duration: 6000
     });
 
     modal({

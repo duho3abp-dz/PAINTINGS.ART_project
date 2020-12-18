@@ -62,7 +62,19 @@ const slider = ({
         slides[!backwards ? 0 : slides.length - 1].remove();
         changeSlide();
 
-        setTimeout(() => wrap.style.transition = transition, 100);
+        setTimeout(() => {
+            wrap.style.transition = transition;
+            change = true;
+        }, 100);
+    };
+
+    const changeAndCheckSlide = () => {
+        changeSlide();
+        setTimeout(() => {
+            if (slideNumber >= quantitySlides) { processingSlide(); }
+            else if (slideNumber <= 0) { processingSlide(true); }
+            else change = true;
+        }, transitionTime + 1);
     };
 
     const startAnimateSlider = () => {
@@ -70,29 +82,16 @@ const slider = ({
             if (change) {
                 change = false;
                 slideNumber = directionTurningSlides === 'next' ? slideNumber + 1 : slideNumber - 1 ;
-                changeSlide();
-                // console.log(slideNumber);
-    
-                setTimeout(() => {
-                    if (slideNumber >= quantitySlides) processingSlide();
-                    if (slideNumber <= 0) processingSlide(true);
-                    change = true;
-                }, transitionTime + 1);
+                changeAndCheckSlide();
             }
         },duration);
     };
 
-    const clickEvent = (key) => {
+    const clickEvent = key => {
         if (change) {
             change = false;
             slideNumber = key === 'next' ? slideNumber + 1 : slideNumber - 1 ;
-            changeSlide();
-    
-            setTimeout(() => {
-                if (slideNumber >= quantitySlides) processingSlide();
-                if (slideNumber <= 0) processingSlide(true);
-                change = true;
-            }, transitionTime + 1);
+            changeAndCheckSlide();
         }
     }
 
