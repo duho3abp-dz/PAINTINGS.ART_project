@@ -1,10 +1,14 @@
 'use strict';
 
-import mainAutoSlider from './modules/mainAutoSlider';
 import slider from './modules/slider';
 import modal from './modules/modal';
+import form from './modules/form';
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    form({
+        formsIdentifier: 'form'
+    });
 
     slider({
         frameIdentifier: '[data-main-slider-frame]',
