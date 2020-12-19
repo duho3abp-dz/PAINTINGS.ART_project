@@ -2139,7 +2139,8 @@ document.addEventListener('DOMContentLoaded', function () {
     wrapIdentifier: '[data-slider-wrap]',
     prevButtonIdentifier: '[data-slider-button-prev]',
     nextButtonIdentifier: '[data-slider-button-next]',
-    duration: 6000
+    duration: 7000,
+    isModal: _modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"]
   });
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])({
     btnsClass: '.button-design',
@@ -2349,7 +2350,8 @@ var slider = function slider(_ref) {
       _ref$duration = _ref.duration,
       duration = _ref$duration === void 0 ? 4000 : _ref$duration,
       _ref$startSlideNumber = _ref.startSlideNumber,
-      startSlideNumber = _ref$startSlideNumber === void 0 ? 1 : _ref$startSlideNumber;
+      startSlideNumber = _ref$startSlideNumber === void 0 ? 1 : _ref$startSlideNumber,
+      isModal = _ref.isModal;
   var frame = document.querySelector(frameIdentifier);
   var wrap = document.querySelector(wrapIdentifier);
   var prevButton = prevButtonIdentifier ? document.querySelector(prevButtonIdentifier) : null;
@@ -2372,6 +2374,10 @@ var slider = function slider(_ref) {
     slide.innerHTML = body;
     if (direction === 'prev') wrap.prepend(slide);
     if (direction === 'next') wrap.append(slide);
+    if (isModal) isModal({
+      btnsClass: ".".concat(slideClass),
+      modalClass: '.popup-design'
+    });
   };
 
   var changeSlide = function changeSlide() {

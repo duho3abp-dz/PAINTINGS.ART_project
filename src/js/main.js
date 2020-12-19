@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         wrapIdentifier: '[data-slider-wrap]',
         prevButtonIdentifier: '[data-slider-button-prev]',
         nextButtonIdentifier: '[data-slider-button-next]',
-        duration: 6000
+        duration: 7000,
+        isModal: modal
     });
 
     modal({

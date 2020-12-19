@@ -9,7 +9,8 @@ const slider = ({
     directionTurningSlides = 'next',
     transitionTime = 1000,
     duration = 4000,
-    startSlideNumber = 1
+    startSlideNumber = 1,
+    isModal
 }) => {
     const frame = document.querySelector(frameIdentifier);
     const wrap = document.querySelector(wrapIdentifier);
@@ -33,6 +34,11 @@ const slider = ({
         slide.innerHTML = body;
         if (direction === 'prev') wrap.prepend(slide);
         if (direction === 'next') wrap.append(slide);
+        
+        if (isModal) isModal({
+            btnsClass: `.${slideClass}`,
+            modalClass: '.popup-design'
+        });
     };
 
     const changeSlide = () => {
