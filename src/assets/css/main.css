@@ -361,10 +361,6 @@ h4 {
   overflow: hidden;
 }
 
-.main-slider {
-  /* transition: all .3s ease; */
-}
-
 .main-slider-btn {
   position: absolute;
   top: 50%;
