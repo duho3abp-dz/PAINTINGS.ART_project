@@ -7,7 +7,12 @@ import form from './modules/form';
 document.addEventListener('DOMContentLoaded', () => {
 
     form({
-        formsIdentifier: 'form'
+        formsIdentifier: 'form',
+        answerBlockClass: 'form-answer',
+        answerStatus: {
+            success: 'Данные отправлены успешно!',
+            error: 'Что то пошло не так...'
+        }
     });
 
     slider({

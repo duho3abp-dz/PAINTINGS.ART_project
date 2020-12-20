@@ -1,5 +1,7 @@
 'use strict';
 
+import closeModal from './closeModal';
+
 const modal = ({
     btnsClass,
     modalClass,
@@ -18,10 +20,10 @@ const modal = ({
         document.body.style.overflow = 'hidden';
     };
 
-    const closeModal = (elem) => {
-        elem.style.display = '';
-        document.body.style.overflow = '';
-    };
+    // const closeModal = (elem) => {
+    //     elem.style.display = '';
+    //     document.body.style.overflow = '';
+    // };
 
     btns.forEach(btn => btn.addEventListener('click', () => {
         openModal(modal);

@@ -361,10 +361,6 @@ h4 {
   overflow: hidden;
 }
 
-.main-slider {
-  /* transition: all .3s ease; */
-}
-
 .main-slider-btn {
   position: absolute;
   top: 50%;
@@ -1749,4 +1745,23 @@ h4 {
     padding: 3rem 3rem;
     width: 25rem;
   }
+}
+
+form {
+  position: relative;
+  /* overflow: hidden; */
+}
+
+.form-answer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ededed;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
 }
