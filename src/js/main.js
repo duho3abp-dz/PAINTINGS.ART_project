@@ -3,6 +3,7 @@
 import slider from './modules/slider';
 import modal from './modules/modal';
 import form from './modules/form';
+import inputMask from './modules/inputMask';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -14,6 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
             success: 'Данные отправлены успешно!',
             error: 'Что то пошло не так...'
         }
+    });
+
+    inputMask({
+        inputNameIdentifier: 'phone'
     });
 
     slider({
