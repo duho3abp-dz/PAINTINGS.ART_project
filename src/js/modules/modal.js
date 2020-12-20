@@ -20,11 +20,6 @@ const modal = ({
         document.body.style.overflow = 'hidden';
     };
 
-    // const closeModal = (elem) => {
-    //     elem.style.display = '';
-    //     document.body.style.overflow = '';
-    // };
-
     btns.forEach(btn => btn.addEventListener('click', () => {
         openModal(modal);
         if (removeButtonAfterOpening) btn.style.display = 'none';

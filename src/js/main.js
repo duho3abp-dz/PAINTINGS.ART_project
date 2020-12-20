@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form({
         formsIdentifier: 'form',
         answerBlockClass: 'form-answer',
+        orderButtonClass: '.button-order',
         answerStatus: {
             success: 'Данные отправлены успешно!',
             error: 'Что то пошло не так...'

@@ -2,10 +2,12 @@
 
 import { postData } from '../services/services';
 import closeModal from './closeModal';
+import loading from './loading';
 
 const form = ({ 
     formsIdentifier, 
     answerBlockClass,
+    orderButtonClass,
     durationAnswer = 2000,
     answerStatus: { success, error }
 }) => {
@@ -29,13 +31,19 @@ const form = ({
 
         const actualForm = e.currentTarget;
         const formModal = actualForm.parentElement.parentElement.parentElement;
+        const formButton = actualForm.querySelector(orderButtonClass);
         const formData = new FormData(actualForm);
         const formObj = Object.fromEntries(formData.entries());
+
+        formButton.innerHTML += loading();
 
         postData(formObj)
         .then(() => createAnswerMask(actualForm, success, formModal))
         .catch(() => createAnswerMask(actualForm, error, formModal))
-        .finally(() => actualForm.reset());
+        .finally(() => {
+            actualForm.reset();
+            loading(formButton);
+        });
     }
 
     forms.forEach(elem => elem.addEventListener('submit', submitEvent));

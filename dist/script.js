@@ -4142,6 +4142,7 @@ document.addEventListener('DOMContentLoaded', function () {
   Object(_modules_form__WEBPACK_IMPORTED_MODULE_2__["default"])({
     formsIdentifier: 'form',
     answerBlockClass: 'form-answer',
+    orderButtonClass: '.button-order',
     answerStatus: {
       success: 'Данные отправлены успешно!',
       error: 'Что то пошло не так...'
@@ -4223,6 +4224,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/services */ "./src/js/services/services.js");
 /* harmony import */ var _closeModal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./closeModal */ "./src/js/modules/closeModal.js");
+/* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./loading */ "./src/js/modules/loading.js");
+
 
 
 
@@ -4238,6 +4241,7 @@ __webpack_require__.r(__webpack_exports__);
 var form = function form(_ref) {
   var formsIdentifier = _ref.formsIdentifier,
       answerBlockClass = _ref.answerBlockClass,
+      orderButtonClass = _ref.orderButtonClass,
       _ref$durationAnswer = _ref.durationAnswer,
       durationAnswer = _ref$durationAnswer === void 0 ? 2000 : _ref$durationAnswer,
       _ref$answerStatus = _ref.answerStatus,
@@ -4261,14 +4265,17 @@ var form = function form(_ref) {
     e.preventDefault();
     var actualForm = e.currentTarget;
     var formModal = actualForm.parentElement.parentElement.parentElement;
+    var formButton = actualForm.querySelector(orderButtonClass);
     var formData = new FormData(actualForm);
     var formObj = Object.fromEntries(formData.entries());
+    formButton.innerHTML += Object(_loading__WEBPACK_IMPORTED_MODULE_9__["default"])();
     Object(_services_services__WEBPACK_IMPORTED_MODULE_7__["postData"])(formObj).then(function () {
       return createAnswerMask(actualForm, success, formModal);
     }).catch(function () {
       return createAnswerMask(actualForm, error, formModal);
     }).finally(function () {
-      return actualForm.reset();
+      actualForm.reset();
+      Object(_loading__WEBPACK_IMPORTED_MODULE_9__["default"])(formButton);
     });
   };
 
@@ -4278,6 +4285,27 @@ var form = function form(_ref) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (form);
+
+/***/ }),
+
+/***/ "./src/js/modules/loading.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/loading.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+var loading = function loading(elem) {
+  if (elem) {
+    elem.querySelector('.loding-spinner').remove();
+  } else return "\n        <div class=\"loding-spinner\">\n            <div class=\"loadingio-spinner-spinner-mljfgfh12q\">\n                <div class=\"ldio-47szf1rv5j6\">\n                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>\n                </div>\n            </div>\n        </div>\n    ";
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (loading);
 
 /***/ }),
 
@@ -4312,11 +4340,7 @@ var modal = function modal(_ref) {
   var openModal = function openModal(elem) {
     elem.style.display = 'flex';
     document.body.style.overflow = 'hidden';
-  }; // const closeModal = (elem) => {
-  //     elem.style.display = '';
-  //     document.body.style.overflow = '';
-  // };
-
+  };
 
   btns.forEach(function (btn) {
     return btn.addEventListener('click', function () {
