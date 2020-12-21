@@ -4844,6 +4844,8 @@ var inputMask = function inputMask(_ref) {
 
   var transformationValue = function transformationValue(currentValue) {
     var clearValue = currentValue.replace(/\D/igm, '').slice(1);
+    console.log(currentValue);
+    console.log(clearValue);
     var numeral1 = clearValue.slice(0, 1);
     var numeral2 = clearValue.slice(1, 2);
     var numeral3 = clearValue.slice(2, 3);
@@ -4854,14 +4856,16 @@ var inputMask = function inputMask(_ref) {
     var numeral8 = clearValue.slice(7, 8);
     var numeral9 = clearValue.slice(8, 9);
     var numeral10 = clearValue.slice(9, 10);
-    value = clearValue.length <= 3 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3) : clearValue.length === 3 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")") : clearValue.length > 3 && clearValue.length < 6 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6) : clearValue.length === 6 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-") : clearValue.length > 6 && clearValue.length < 8 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-").concat(numeral7).concat(numeral8) : clearValue.length === 8 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-").concat(numeral7).concat(numeral8, "-") : "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-").concat(numeral7).concat(numeral8, "-").concat(numeral9).concat(numeral10);
+    value = clearValue.length < 3 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3) : clearValue.length === 3 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")") : clearValue.length > 3 && clearValue.length < 6 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6) : clearValue.length === 6 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-") : clearValue.length > 6 && clearValue.length < 8 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-").concat(numeral7).concat(numeral8) : clearValue.length === 8 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-").concat(numeral7).concat(numeral8, "-") : "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-").concat(numeral7).concat(numeral8, "-").concat(numeral9).concat(numeral10);
   };
 
   var inputPhoneEvent = function inputPhoneEvent(e) {
     var enteredCharacter = e.data;
     var input = e.currentTarget;
+    input.setSelectionRange(0, 0);
     value = +enteredCharacter || enteredCharacter === null ? input.value : value;
-    transformationValue(input.value);
+    transformationValue(input.value); // if (enteredCharacter !== null) transformationValue(input.value);
+
     checkSizeNumbers();
     addValue(input);
   };

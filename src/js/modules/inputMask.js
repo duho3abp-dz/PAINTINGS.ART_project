@@ -30,6 +30,9 @@ const inputMask = ({ inputNameIdentifier }) => {
 
     const transformationValue = currentValue => {
         const clearValue = currentValue.replace(/\D/igm, '').slice(1);
+        
+        console.log(currentValue);
+        console.log(clearValue);
 
         const numeral1 = clearValue.slice(0, 1);
         const numeral2 = clearValue.slice(1, 2);
@@ -42,7 +45,7 @@ const inputMask = ({ inputNameIdentifier }) => {
         const numeral9 = clearValue.slice(8, 9);
         const numeral10 = clearValue.slice(9, 10);
 
-        value = clearValue.length <= 3 
+        value = clearValue.length < 3 
         ? `+7(${numeral1}${numeral2}${numeral3}` 
         : clearValue.length === 3 
         ? `+7(${numeral1}${numeral2}${numeral3})`
@@ -61,8 +64,11 @@ const inputMask = ({ inputNameIdentifier }) => {
         const enteredCharacter = e.data;
         const input = e.currentTarget;
 
+        // input.setSelectionRange(0, 0);
+
         value = +enteredCharacter || enteredCharacter === null ?  input.value : value ;
         transformationValue(input.value);
+        // if (enteredCharacter !== null) transformationValue(input.value);
         checkSizeNumbers();
 
         addValue(input);
