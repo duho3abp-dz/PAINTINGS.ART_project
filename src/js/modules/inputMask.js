@@ -6,33 +6,35 @@ const inputMask = ({ inputNameIdentifier }) => {
     if ( !phoneInputs.length ) return;
 
     let value = '';
+    let cursorPosition = 0;
 
     const addValue = input => input.value = value;
 
-    const focusPhoneEvent = e => { 
+    const focusPhoneEvent = e => {
         if ( !value.length ) {
             value = '+7(';
             addValue(e.currentTarget);
-        }; 
+        };
     };
 
-    const blurPhoneEvent = e => { 
+    const blurPhoneEvent = e => {
         if ( value ===  '+7(') {
             value = '';
             addValue(e.currentTarget);
-        }; 
+        };
     };
 
-    const checkSizeNumbers = () => { 
+    const checkSizeNumbers = () => {
         if (value.length < 3) value = '+7(';
         if (value.length > 16) value = value.slice(0, 16); 
     };
 
     const transformationValue = currentValue => {
         const clearValue = currentValue.replace(/\D/igm, '').slice(1);
+        const valueLength = clearValue.length;
         
-        console.log(currentValue);
-        console.log(clearValue);
+        // console.log(currentValue);
+        // console.log(clearValue);
 
         const numeral1 = clearValue.slice(0, 1);
         const numeral2 = clearValue.slice(1, 2);
@@ -45,24 +47,29 @@ const inputMask = ({ inputNameIdentifier }) => {
         const numeral9 = clearValue.slice(8, 9);
         const numeral10 = clearValue.slice(9, 10);
 
-        value = clearValue.length < 3 
-        ? `+7(${numeral1}${numeral2}${numeral3}` 
-        : clearValue.length === 3 
+        value = valueLength < 3
+        ? `+7(${numeral1}${numeral2}${numeral3}`
+        : valueLength === 3
         ? `+7(${numeral1}${numeral2}${numeral3})`
-        : clearValue.length > 3 && clearValue.length < 6 
+        : valueLength > 3 && valueLength < 6
         ? `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}`
-        : clearValue.length === 6
+        : valueLength === 6
         ? `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}-`
-        : clearValue.length > 6 && clearValue.length < 8
+        : valueLength > 6 && valueLength < 8
         ? `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}-${numeral7}${numeral8}`
-        : clearValue.length === 8
+        : valueLength === 8
         ? `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}-${numeral7}${numeral8}-`
-        : `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}-${numeral7}${numeral8}-${numeral9}${numeral10}`;
+        : `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}-${numeral7}${numeral8}-${numeral9}${numeral10}` ;
+
+        cursorPosition = valueLength === 3 || valueLength === 6 || valueLength === 8 ? cursorPosition + 1 : cursorPosition ;
     }
 
     const inputPhoneEvent = e => {
         const enteredCharacter = e.data;
         const input = e.currentTarget;
+        cursorPosition = input.selectionStart
+
+        console.log(cursorPosition);
 
         // input.setSelectionRange(0, 0);
 
@@ -72,6 +79,9 @@ const inputMask = ({ inputNameIdentifier }) => {
         checkSizeNumbers();
 
         addValue(input);
+
+        input.setSelectionRange(cursorPosition, cursorPosition);
+        console.log(cursorPosition);
     };
 
     const phoneMask = input => {
