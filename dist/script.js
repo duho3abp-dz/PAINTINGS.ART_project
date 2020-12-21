@@ -4843,11 +4843,16 @@ var inputMask = function inputMask(_ref) {
     if (value.length > 16) value = value.slice(0, 16);
   };
 
-  var transformationValue = function transformationValue(currentValue) {
-    var clearValue = currentValue.replace(/\D/igm, '').slice(1);
-    var valueLength = clearValue.length; // console.log(currentValue);
-    // console.log(clearValue);
+  var changeValue = function changeValue(value) {
+    var firstNumeral = value[0];
+    cursorPosition++;
+    return "".concat(firstNumeral).concat(value.slice(2));
+  };
 
+  var transformationValue = function transformationValue(currentValue, enteredCharacter) {
+    var dirtyValue = currentValue.replace(/\D/igm, '');
+    var clearValue = !dirtyValue ? dirtyValue : currentValue[0] === '+' ? dirtyValue.slice(1) : changeValue(dirtyValue);
+    var valueLength = clearValue.length;
     var numeral1 = clearValue.slice(0, 1);
     var numeral2 = clearValue.slice(1, 2);
     var numeral3 = clearValue.slice(2, 3);
@@ -4859,22 +4864,18 @@ var inputMask = function inputMask(_ref) {
     var numeral9 = clearValue.slice(8, 9);
     var numeral10 = clearValue.slice(9, 10);
     value = valueLength < 3 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3) : valueLength === 3 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")") : valueLength > 3 && valueLength < 6 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6) : valueLength === 6 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-") : valueLength > 6 && valueLength < 8 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-").concat(numeral7).concat(numeral8) : valueLength === 8 ? "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-").concat(numeral7).concat(numeral8, "-") : "+7(".concat(numeral1).concat(numeral2).concat(numeral3, ")").concat(numeral4).concat(numeral5).concat(numeral6, "-").concat(numeral7).concat(numeral8, "-").concat(numeral9).concat(numeral10);
-    cursorPosition = valueLength === 3 || valueLength === 6 || valueLength === 8 ? cursorPosition + 1 : cursorPosition;
+    cursorPosition = enteredCharacter === null ? cursorPosition : cursorPosition === 6 || cursorPosition === 10 || cursorPosition === 13 ? cursorPosition + 1 : cursorPosition;
   };
 
   var inputPhoneEvent = function inputPhoneEvent(e) {
     var enteredCharacter = e.data;
     var input = e.currentTarget;
-    cursorPosition = input.selectionStart;
-    console.log(cursorPosition); // input.setSelectionRange(0, 0);
-
+    cursorPosition = input.selectionStart < 3 ? 3 : input.selectionStart;
     value = +enteredCharacter || enteredCharacter === null ? input.value : value;
-    transformationValue(input.value); // if (enteredCharacter !== null) transformationValue(input.value);
-
+    transformationValue(input.value, enteredCharacter);
     checkSizeNumbers();
     addValue(input);
     input.setSelectionRange(cursorPosition, cursorPosition);
-    console.log(cursorPosition);
   };
 
   var phoneMask = function phoneMask(input) {

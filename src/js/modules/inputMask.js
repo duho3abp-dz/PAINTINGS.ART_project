@@ -29,12 +29,17 @@ const inputMask = ({ inputNameIdentifier }) => {
         if (value.length > 16) value = value.slice(0, 16); 
     };
 
-    const transformationValue = currentValue => {
-        const clearValue = currentValue.replace(/\D/igm, '').slice(1);
+    const changeValue = value => {
+        const firstNumeral = value[0];  
+        cursorPosition++;
+
+        return `${firstNumeral}${value.slice(2)}`;
+    }
+
+    const transformationValue = (currentValue, enteredCharacter) => {
+        const dirtyValue = currentValue.replace(/\D/igm, '');
+        const clearValue = !dirtyValue ? dirtyValue : currentValue[0] === '+' ? dirtyValue.slice(1) : changeValue(dirtyValue) ;
         const valueLength = clearValue.length;
-        
-        // console.log(currentValue);
-        // console.log(clearValue);
 
         const numeral1 = clearValue.slice(0, 1);
         const numeral2 = clearValue.slice(1, 2);
@@ -61,27 +66,21 @@ const inputMask = ({ inputNameIdentifier }) => {
         ? `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}-${numeral7}${numeral8}-`
         : `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}-${numeral7}${numeral8}-${numeral9}${numeral10}` ;
 
-        cursorPosition = valueLength === 3 || valueLength === 6 || valueLength === 8 ? cursorPosition + 1 : cursorPosition ;
+        cursorPosition = enteredCharacter === null ? cursorPosition 
+        : cursorPosition === 6 || cursorPosition === 10 || cursorPosition === 13 ? cursorPosition + 1 : cursorPosition ;
     }
 
     const inputPhoneEvent = e => {
         const enteredCharacter = e.data;
         const input = e.currentTarget;
-        cursorPosition = input.selectionStart
 
-        console.log(cursorPosition);
-
-        // input.setSelectionRange(0, 0);
-
+        cursorPosition = input.selectionStart < 3 ? 3 : input.selectionStart ;
         value = +enteredCharacter || enteredCharacter === null ?  input.value : value ;
-        transformationValue(input.value);
-        // if (enteredCharacter !== null) transformationValue(input.value);
+
+        transformationValue(input.value, enteredCharacter);
         checkSizeNumbers();
-
         addValue(input);
-
         input.setSelectionRange(cursorPosition, cursorPosition);
-        console.log(cursorPosition);
     };
 
     const phoneMask = input => {
