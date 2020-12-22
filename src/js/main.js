@@ -4,6 +4,7 @@ import slider from './modules/slider';
 import modal from './modules/modal';
 import form from './modules/form';
 import inputMask from './modules/inputMask';
+import checkTextInput from './modules/checkTextInput';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -15,10 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
             success: 'Данные отправлены успешно!',
             error: 'Что то пошло не так...'
         }
-    });
-
-    inputMask({
-        inputNameIdentifier: 'phone'
     });
 
     slider({
@@ -52,5 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
         modalClass: '.popup-gift',
         removeButtonAfterOpening: true
     });
+
+    inputMask({ inputNameIdentifier: 'phone' });
+    checkTextInput({ inputNameIdentifier: 'name' });
+    checkTextInput({ inputNameIdentifier: 'message' });
 
 });
