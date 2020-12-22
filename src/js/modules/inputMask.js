@@ -18,7 +18,7 @@ const inputMask = ({ inputNameIdentifier }) => {
     };
 
     const blurPhoneEvent = e => {
-        if ( value ===  '+7(') {
+        if ( value ===  '+7(' ) {
             value = '';
             addValue(e.currentTarget);
         };
@@ -36,7 +36,7 @@ const inputMask = ({ inputNameIdentifier }) => {
         return `${firstNumeral}${value.slice(2)}`;
     }
 
-    const transformationValue = (currentValue, enteredCharacter) => {
+    const transformationValue = ( currentValue, enteredCharacter ) => {
         const dirtyValue = currentValue.replace(/\D/igm, '');
         const clearValue = !dirtyValue ? dirtyValue : currentValue[0] === '+' ? dirtyValue.slice(1) : changeValue(dirtyValue) ;
         const valueLength = clearValue.length;
@@ -52,22 +52,16 @@ const inputMask = ({ inputNameIdentifier }) => {
         const numeral9 = clearValue.slice(8, 9);
         const numeral10 = clearValue.slice(9, 10);
 
-        value = valueLength < 3
+        value = valueLength < 4
         ? `+7(${numeral1}${numeral2}${numeral3}`
-        : valueLength === 3
-        ? `+7(${numeral1}${numeral2}${numeral3})`
-        : valueLength > 3 && valueLength < 6
+        : valueLength >= 4 && valueLength < 7
         ? `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}`
-        : valueLength === 6
-        ? `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}-`
-        : valueLength > 6 && valueLength < 8
+        : valueLength >= 7 && valueLength < 9
         ? `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}-${numeral7}${numeral8}`
-        : valueLength === 8
-        ? `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}-${numeral7}${numeral8}-`
         : `+7(${numeral1}${numeral2}${numeral3})${numeral4}${numeral5}${numeral6}-${numeral7}${numeral8}-${numeral9}${numeral10}` ;
 
         cursorPosition = enteredCharacter === null ? cursorPosition 
-        : cursorPosition === 6 || cursorPosition === 10 || cursorPosition === 13 ? cursorPosition + 1 : cursorPosition ;
+        : cursorPosition === 7 || cursorPosition === 11 || cursorPosition === 14 ? cursorPosition + 1 : cursorPosition ;
     }
 
     const inputPhoneEvent = e => {
