@@ -5,6 +5,7 @@ import modal from './modules/modal';
 import form from './modules/form';
 import inputMask from './modules/inputMask';
 import checkTextInput from './modules/checkTextInput';
+import stylesBlocks from './modules/stylesBlocks';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -48,6 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
         btnsClass: '[data-present-open]',
         modalClass: '.popup-gift',
         removeButtonAfterOpening: true
+    });
+
+    stylesBlocks({
+        loadingButtonIdentifier : '[data-styles-button]',
+        stylesBlocksIdentifier: '.styles-2'
     });
 
     inputMask({ inputNameIdentifier: 'phone' });

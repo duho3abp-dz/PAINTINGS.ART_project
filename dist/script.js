@@ -5313,6 +5313,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/form */ "./src/js/modules/form.js");
 /* harmony import */ var _modules_inputMask__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/inputMask */ "./src/js/modules/inputMask.js");
 /* harmony import */ var _modules_checkTextInput__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/checkTextInput */ "./src/js/modules/checkTextInput.js");
+/* harmony import */ var _modules_stylesBlocks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/stylesBlocks */ "./src/js/modules/stylesBlocks.js");
+
 
 
 
@@ -5356,6 +5358,10 @@ document.addEventListener('DOMContentLoaded', function () {
     btnsClass: '[data-present-open]',
     modalClass: '.popup-gift',
     removeButtonAfterOpening: true
+  });
+  Object(_modules_stylesBlocks__WEBPACK_IMPORTED_MODULE_5__["default"])({
+    loadingButtonIdentifier: '[data-styles-button]',
+    stylesBlocksIdentifier: '.styles-2'
   });
   Object(_modules_inputMask__WEBPACK_IMPORTED_MODULE_3__["default"])({
     inputNameIdentifier: 'phone'
@@ -5890,6 +5896,40 @@ var slider = function slider(_ref) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (slider);
+
+/***/ }),
+
+/***/ "./src/js/modules/stylesBlocks.js":
+/*!****************************************!*\
+  !*** ./src/js/modules/stylesBlocks.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+var stylesBlocks = function stylesBlocks(_ref) {
+  var loadingButtonIdentifier = _ref.loadingButtonIdentifier,
+      stylesBlocksIdentifier = _ref.stylesBlocksIdentifier;
+  var button = document.querySelector(loadingButtonIdentifier);
+  var blocks = document.querySelectorAll(stylesBlocksIdentifier);
+  var blocksLength = blocks.length - 1;
+  if (!button || !blocks.length) return;
+  var index = 0;
+
+  var addBlock = function addBlock(e) {
+    e.preventDefault();
+    blocks[index].style.display = 'block';
+    button.style.display = index === blocksLength ? 'none' : '';
+    index++;
+  };
+
+  button.addEventListener('click', addBlock);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (stylesBlocks);
 
 /***/ }),
 

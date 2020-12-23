@@ -6713,7 +6713,7 @@ button.close {
 }
 @media (min-width: 1200px) {
   .hidden-lg {
-    display: none !important;
+    display: none;
   }
 }
 .visible-print {
