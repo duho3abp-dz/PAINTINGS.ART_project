@@ -6,6 +6,7 @@ import form from './modules/form';
 import inputMask from './modules/inputMask';
 import checkTextInput from './modules/checkTextInput';
 import stylesBlocks from './modules/stylesBlocks';
+import calculator from './modules/calculator';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -55,6 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingButtonIdentifier : '[data-styles-button]',
         stylesBlocksIdentifier: '.styles-2'
     });
+
+    calculator({});
 
     inputMask({ inputNameIdentifier: 'phone' });
     checkTextInput({ inputNameIdentifier: 'name' });
