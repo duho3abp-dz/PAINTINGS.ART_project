@@ -57,7 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
         stylesBlocksIdentifier: '.styles-2'
     });
 
-    calculator({});
+    calculator({ 
+        selectsIdentifier: '[data-calculator-select]'
+    });
 
     inputMask({ inputNameIdentifier: 'phone' });
     checkTextInput({ inputNameIdentifier: 'name' });
