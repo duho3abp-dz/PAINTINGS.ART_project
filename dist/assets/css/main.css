@@ -541,6 +541,23 @@ h4 {
   position: relative;
   z-index: -1000;
 }
+.calc-price-into {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f7e7e6;
+  transition: all .1s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+.calc-price-into--active {
+  opacity: 1;
+}
 .calc .button-order {
   margin-top: 6rem;
   padding-left: 8rem;

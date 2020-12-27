@@ -1,21 +1,39 @@
 'use strict';
 
 const calculator = ({
-    selectsIdentifier
+    selectsIdentifier,
+    totalPriceBlockIdentifier,
+    activeTotalPriceBlock,
+    promoInputIdentifier,
+    promoWord,
+    discount
 }) => {
     const selects = document.querySelectorAll(selectsIdentifier);
+    const totalBlock = document.querySelector(totalPriceBlockIdentifier);
+    const input = document.querySelector(promoInputIdentifier);
 
-    if (!selects.length) return;
+    if ( !selects.length || !totalBlock || !input ) return;
 
     let data = {
         size: { value: '', price: 0 },
         material: { value: '', price: 0 },
         options: { value: '', price: 0 },
+        promo: false,
         total: 0
     };
 
+    const sumTotal = () => {
+        const { size, material, options, promo } = data;
+        const sum = +size.price + +material.price + +options.price;
+        const total = promo && discount > 0 && discount <= 100
+            ? Math.round( sum / 100 * ( 100 - discount) ) : sum ;
+
+        data = { ...data, total };
+        displayTotal();
+    };
+
     const actionData = (id, value) => {
-        const price = 0;
+        let price = 0;
         switch (id) {
             case 'size':
                 price = !value ? 0 
@@ -44,19 +62,30 @@ const calculator = ({
         }
     };
 
+    const displayTotal = () => {
+        const { size, material, total } = data;
+        totalBlock.textContent = !total ? '' : size.price && material.price ? `${ data.total } ₽` : '';
+        
+        if ( totalBlock.textContent ) { totalBlock.classList.add( activeTotalPriceBlock ) }
+        else totalBlock.classList.remove( activeTotalPriceBlock ) ;
+    };
+
     const changeEvent = e => {
         const select = e.target;
         const value = select.value;
 
         actionData(select.id, value);
+        sumTotal();
+    };
 
-        // data.total = data.size.price + data.material.price + data.options.price;
-
-        console.log(data);
-        // console.log(data.size.price);
+    const blurEvent = e => {
+        const value = e.target.value;
+        data = { ...data, promo: value === promoWord };
+        sumTotal();
     };
 
     selects.forEach(select => select.addEventListener('change', changeEvent));
+    input.addEventListener('blur', blurEvent);
 };
 
 export default calculator;

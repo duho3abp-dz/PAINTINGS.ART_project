@@ -5453,7 +5453,12 @@ document.addEventListener('DOMContentLoaded', function () {
     stylesBlocksIdentifier: '.styles-2'
   });
   Object(_modules_calculator__WEBPACK_IMPORTED_MODULE_6__["default"])({
-    selectsIdentifier: '[data-calculator-select]'
+    selectsIdentifier: '[data-calculator-select]',
+    totalPriceBlockIdentifier: '.calc-price-into',
+    activeTotalPriceBlock: 'calc-price-into--active',
+    promoInputIdentifier: '[data-promo-input]',
+    promoWord: 'IWANTPOPART',
+    discount: 30
   });
   Object(_modules_inputMask__WEBPACK_IMPORTED_MODULE_3__["default"])({
     inputNameIdentifier: 'phone'
@@ -5504,12 +5509,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
-
 var calculator = function calculator(_ref) {
-  var selectsIdentifier = _ref.selectsIdentifier;
+  var selectsIdentifier = _ref.selectsIdentifier,
+      totalPriceBlockIdentifier = _ref.totalPriceBlockIdentifier,
+      activeTotalPriceBlock = _ref.activeTotalPriceBlock,
+      promoInputIdentifier = _ref.promoInputIdentifier,
+      promoWord = _ref.promoWord,
+      discount = _ref.discount;
   var selects = document.querySelectorAll(selectsIdentifier);
-  if (!selects.length) return;
+  var totalBlock = document.querySelector(totalPriceBlockIdentifier);
+  var input = document.querySelector(promoInputIdentifier);
+  if (!selects.length || !totalBlock || !input) return;
   var data = {
     size: {
       value: '',
@@ -5523,7 +5533,22 @@ var calculator = function calculator(_ref) {
       value: '',
       price: 0
     },
+    promo: false,
     total: 0
+  };
+
+  var sumTotal = function sumTotal() {
+    var _data = data,
+        size = _data.size,
+        material = _data.material,
+        options = _data.options,
+        promo = _data.promo;
+    var sum = +size.price + +material.price + +options.price;
+    var total = promo && discount > 0 && discount <= 100 ? Math.round(sum / 100 * (100 - discount)) : sum;
+    data = _objectSpread({}, data, {
+      total: total
+    });
+    displayTotal();
   };
 
   var actionData = function actionData(id, value) {
@@ -5531,7 +5556,7 @@ var calculator = function calculator(_ref) {
 
     switch (id) {
       case 'size':
-        price = (_readOnlyError("price"), !value ? 0 : value === '40x50' ? 500 : value === '50x70' ? 600 : value === '70x70' ? 700 : value === '70x100' ? 900 : 0);
+        price = !value ? 0 : value === '40x50' ? 500 : value === '50x70' ? 600 : value === '70x70' ? 700 : value === '70x100' ? 900 : 0;
         data = _objectSpread({}, data, {
           size: {
             value: value,
@@ -5541,7 +5566,7 @@ var calculator = function calculator(_ref) {
         break;
 
       case 'material':
-        price = (_readOnlyError("price"), !value ? 0 : value === 'Холст из волокна' ? 300 : value === 'Льняной холст' ? 400 : value === 'Холст из натурального хлопка' ? 500 : 0);
+        price = !value ? 0 : value === 'Холст из волокна' ? 300 : value === 'Льняной холст' ? 400 : value === 'Холст из натурального хлопка' ? 500 : 0;
         data = _objectSpread({}, data, {
           material: {
             value: value,
@@ -5551,7 +5576,7 @@ var calculator = function calculator(_ref) {
         break;
 
       case 'options':
-        price = (_readOnlyError("price"), !value ? 0 : value === 'Покрытие арт-гелем' ? 300 : value === 'Экспресс-изготовление' ? 300 : value === 'Доставка готовых работ' ? 300 : 0);
+        price = !value ? 0 : value === 'Покрытие арт-гелем' ? 300 : value === 'Экспресс-изготовление' ? 300 : value === 'Доставка готовых работ' ? 300 : 0;
         data = _objectSpread({}, data, {
           options: {
             value: value,
@@ -5565,17 +5590,37 @@ var calculator = function calculator(_ref) {
     }
   };
 
+  var displayTotal = function displayTotal() {
+    var _data2 = data,
+        size = _data2.size,
+        material = _data2.material,
+        total = _data2.total;
+    totalBlock.textContent = !total ? '' : size.price && material.price ? "".concat(data.total, " \u20BD") : '';
+
+    if (totalBlock.textContent) {
+      totalBlock.classList.add(activeTotalPriceBlock);
+    } else totalBlock.classList.remove(activeTotalPriceBlock);
+  };
+
   var changeEvent = function changeEvent(e) {
     var select = e.target;
     var value = select.value;
-    actionData(select.id, value); // data.total = data.size.price + data.material.price + data.options.price;
+    actionData(select.id, value);
+    sumTotal();
+  };
 
-    console.log(data); // console.log(data.size.price);
+  var blurEvent = function blurEvent(e) {
+    var value = e.target.value;
+    data = _objectSpread({}, data, {
+      promo: value === promoWord
+    });
+    sumTotal();
   };
 
   selects.forEach(function (select) {
     return select.addEventListener('change', changeEvent);
   });
+  input.addEventListener('blur', blurEvent);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (calculator);

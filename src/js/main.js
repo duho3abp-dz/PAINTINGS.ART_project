@@ -58,7 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     calculator({ 
-        selectsIdentifier: '[data-calculator-select]'
+        selectsIdentifier: '[data-calculator-select]',
+        totalPriceBlockIdentifier: '.calc-price-into',
+        activeTotalPriceBlock: 'calc-price-into--active',
+        promoInputIdentifier: '[data-promo-input]',
+        promoWord: 'IWANTPOPART',
+        discount: 30
     });
 
     inputMask({ inputNameIdentifier: 'phone' });
