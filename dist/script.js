@@ -5785,6 +5785,7 @@ var form = function form(_ref) {
       success = _ref$answerStatus.success,
       error = _ref$answerStatus.error;
   var forms = document.querySelectorAll(formsIdentifier);
+  console.log(forms);
   if (!forms.length) return;
 
   var createAnswerMask = function createAnswerMask(actualForm, answer, modal) {

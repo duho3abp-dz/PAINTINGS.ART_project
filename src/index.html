@@ -238,29 +238,29 @@
 							<div>Файл не выбран</div>
 							<input type=file name=upload>
 						</div>
-						<select id=size data-calculator-select>
+						<select name="size" id=size data-calculator-select>
 							<option>Выберите размер картины</option>
 							<option>40x50</option>
 							<option>50x70</option>
 							<option>70x70</option>
 							<option>70x100</option>
 						</select>
-						<select id=material data-calculator-select>
+						<select name="material" id=material data-calculator-select>
 							<option>Выберите материал картины</option>
 							<option title="Изящный, позволяет легко создавать текстуру, подходит для декоративных картин маслом.">Холст из волокна</option>
 							<option title="Достаточно грубый и создает ощущение реальности, подходит для классических пейзажей, натюрмортов и портретов.">Льняной холст</option>
 							<option title="Изящный, подходит для всех типов реалистичных портретов.">Холст из натурального хлопка</option>
 						</select>
-						<select id=options data-calculator-select>
+						<select name="options" id=options data-calculator-select>
 							<option>Дополнительные услуги</option>
 							<option>Покрытие арт-гелем</option>
 							<option>Экспресс-изготовление</option>
 							<option>Доставка готовых работ</option>
 						</select>
-						<input type="text" class="promocode" data-promo-input placeholder="Введите ваш промокод">
+						<input type="text" name="promo" class="promocode" data-promo-input placeholder="Введите ваш промокод">
 						<div class=calc-price>
 							<p>Для расчета нужно выбрать размер картины и материал картины</p>
-							<div class="calc-price-into"></div>
+							<div name="total" class="calc-price-into"></div>
 						</div>
 						<button class="button button-order">Быстрый заказ</button>
 					</form>

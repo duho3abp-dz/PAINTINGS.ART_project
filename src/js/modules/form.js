@@ -12,6 +12,7 @@ const form = ({
     answerStatus: { success, error }
 }) => {
     const forms = document.querySelectorAll(formsIdentifier);
+    console.log(forms);
     
     if (!forms.length) return;
 
