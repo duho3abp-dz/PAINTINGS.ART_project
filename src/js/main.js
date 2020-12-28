@@ -8,6 +8,7 @@ import checkTextInput from './modules/checkTextInput';
 import stylesBlocks from './modules/stylesBlocks';
 import calculator from './modules/calculator';
 import filterElements from './modules/filterElements';
+import accordion from './modules/accordion';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -72,6 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
         parentElementsIdentifier: '[data-filter-elements]',
         activeButtonClass: 'active',
         noContentBlockIdentifier: '.portfolio-no'
+    });
+
+    accordion({
+        headingsIdentifier: '.accordion-heading',
+        blocksIdentifier: '.accordion-block',
+        headerActiveClass: 'ui-accordion-header-active'
     });
 
     inputMask({ inputNameIdentifier: 'phone' });
