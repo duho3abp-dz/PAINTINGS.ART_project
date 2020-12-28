@@ -70,7 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
     filterElements({
         parentButtonsIdentifier: '[data-filter-buttons]',
         parentElementsIdentifier: '[data-filter-elements]',
-        activeButtonClass: 'active'
+        activeButtonClass: 'active',
+        noContentBlockIdentifier: '.portfolio-no'
     });
 
     inputMask({ inputNameIdentifier: 'phone' });
