@@ -7,6 +7,7 @@ import inputMask from './modules/inputMask';
 import checkTextInput from './modules/checkTextInput';
 import stylesBlocks from './modules/stylesBlocks';
 import calculator from './modules/calculator';
+import filterElements from './modules/filterElements';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -64,6 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
         promoInputIdentifier: '[data-promo-input]',
         promoWord: 'IWANTPOPART',
         discount: 30
+    });
+
+    filterElements({
+        parentButtonsIdentifier: '[data-filter-buttons]',
+        parentElementsIdentifier: '[data-filter-elements]',
+        activeButtonClass: 'active'
     });
 
     inputMask({ inputNameIdentifier: 'phone' });

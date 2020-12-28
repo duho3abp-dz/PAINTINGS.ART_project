@@ -5402,6 +5402,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_checkTextInput__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/checkTextInput */ "./src/js/modules/checkTextInput.js");
 /* harmony import */ var _modules_stylesBlocks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/stylesBlocks */ "./src/js/modules/stylesBlocks.js");
 /* harmony import */ var _modules_calculator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calculator */ "./src/js/modules/calculator.js");
+/* harmony import */ var _modules_filterElements__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filterElements */ "./src/js/modules/filterElements.js");
+
 
 
 
@@ -5459,6 +5461,11 @@ document.addEventListener('DOMContentLoaded', function () {
     promoInputIdentifier: '[data-promo-input]',
     promoWord: 'IWANTPOPART',
     discount: 30
+  });
+  Object(_modules_filterElements__WEBPACK_IMPORTED_MODULE_7__["default"])({
+    parentButtonsIdentifier: '[data-filter-buttons]',
+    parentElementsIdentifier: '[data-filter-elements]',
+    activeButtonClass: 'active'
   });
   Object(_modules_inputMask__WEBPACK_IMPORTED_MODULE_3__["default"])({
     inputNameIdentifier: 'phone'
@@ -5736,6 +5743,58 @@ var closeModal = function closeModal(elem) {
 
 /***/ }),
 
+/***/ "./src/js/modules/filterElements.js":
+/*!******************************************!*\
+  !*** ./src/js/modules/filterElements.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+
+var filterElements = function filterElements(_ref) {
+  var parentButtonsIdentifier = _ref.parentButtonsIdentifier,
+      parentElementsIdentifier = _ref.parentElementsIdentifier,
+      activeButtonClass = _ref.activeButtonClass;
+  var buttonsParent = document.querySelector(parentButtonsIdentifier);
+  var elmentsParent = document.querySelector(parentElementsIdentifier);
+  if (!buttonsParent || !elmentsParent) return;
+  var buttons = buttonsParent.children;
+  var elements = elmentsParent.children;
+
+  var changeActiveTab = function changeActiveTab(button) {
+    buttons.forEach(function (item) {
+      return item.classList.remove(activeButtonClass);
+    });
+    button.classList.add(activeButtonClass);
+  };
+
+  var filterByName = function filterByName(name) {
+    return elements.forEach(function (element) {
+      element.style.display = element.classList.contains(name) ? 'block' : 'none';
+    });
+  };
+
+  var clickEvent = function clickEvent(e) {
+    var button = e.target;
+    if (button === e.currentTarget || button.classList.contains(activeButtonClass)) return;
+    filterByName(button.className);
+    changeActiveTab(button);
+  };
+
+  buttonsParent.addEventListener('click', clickEvent);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (filterElements);
+
+/***/ }),
+
 /***/ "./src/js/modules/form.js":
 /*!********************************!*\
   !*** ./src/js/modules/form.js ***!
@@ -5785,7 +5844,6 @@ var form = function form(_ref) {
       success = _ref$answerStatus.success,
       error = _ref$answerStatus.error;
   var forms = document.querySelectorAll(formsIdentifier);
-  console.log(forms);
   if (!forms.length) return;
 
   var createAnswerMask = function createAnswerMask(actualForm, answer, modal) {
