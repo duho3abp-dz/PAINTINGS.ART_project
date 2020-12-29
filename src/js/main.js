@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     modal({
         btnsClass: '.button-consultation',
-        modalClass: '.popup-consultation'
+        modalClass: '.popup-consultation',
+        timerAutoOpen: 60000
     });
 
     modal({
