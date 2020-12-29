@@ -5553,7 +5553,6 @@ var accordion = function accordion(_ref) {
   var hideBlock = function hideBlock(block, head) {
     head.classList.remove(headerActiveClass);
     block.style.height = '0px';
-    block.style.overflow = 'hidden';
     block.style.opacity = '0';
   };
 
@@ -5561,9 +5560,6 @@ var accordion = function accordion(_ref) {
     head.classList.add(headerActiveClass);
     block.style.opacity = '1';
     block.style.height = "".concat(height, "px");
-    setTimeout(function () {
-      return block.style.overflow = '';
-    }, 200);
   };
 
   var setHeightsAndHideBlocks = function setHeightsAndHideBlocks() {

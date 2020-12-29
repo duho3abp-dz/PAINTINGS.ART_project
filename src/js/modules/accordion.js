@@ -18,7 +18,6 @@ const accordion = ({
     const hideBlock = ( block, head ) => {
         head.classList.remove(headerActiveClass);
         block.style.height = '0px';
-        block.style.overflow = 'hidden';
         block.style.opacity = '0';
     }
 
@@ -26,7 +25,6 @@ const accordion = ({
         head.classList.add(headerActiveClass);
         block.style.opacity = '1';
         block.style.height = `${height}px`;
-        setTimeout(() => block.style.overflow = '', 200);
     }
 
     const setHeightsAndHideBlocks = () => {
