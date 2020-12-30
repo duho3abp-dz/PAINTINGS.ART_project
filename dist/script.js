@@ -5404,6 +5404,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_calculator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calculator */ "./src/js/modules/calculator.js");
 /* harmony import */ var _modules_filterElements__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filterElements */ "./src/js/modules/filterElements.js");
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
+/* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
+
 
 
 
@@ -5475,6 +5477,11 @@ document.addEventListener('DOMContentLoaded', function () {
     headingsIdentifier: '.accordion-heading',
     blocksIdentifier: '.accordion-block',
     headerActiveClass: 'ui-accordion-header-active'
+  });
+  Object(_modules_burger__WEBPACK_IMPORTED_MODULE_9__["default"])({
+    buttonIdentifier: '[data-burger-button]',
+    menuIdentifier: '[data-burger-menu]',
+    maxWidth: 992
   });
   Object(_modules_inputMask__WEBPACK_IMPORTED_MODULE_3__["default"])({
     inputNameIdentifier: 'phone'
@@ -5584,6 +5591,53 @@ var accordion = function accordion(_ref) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (accordion);
+
+/***/ }),
+
+/***/ "./src/js/modules/burger.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/burger.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+var burger = function burger(_ref) {
+  var buttonIdentifier = _ref.buttonIdentifier,
+      menuIdentifier = _ref.menuIdentifier,
+      maxWidth = _ref.maxWidth;
+  var button = document.querySelector(buttonIdentifier);
+  var menu = document.querySelector(menuIdentifier);
+  if (!button || !menu) return;
+
+  var checkWidth = function checkWidth() {
+    return window.innerWidth <= maxWidth;
+  };
+
+  var open = checkWidth();
+  var timer;
+
+  var clickEvent = function clickEvent() {
+    if (!open) return;
+    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  };
+
+  var resizeEvent = function resizeEvent() {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      open = checkWidth();
+      if (!open && menu.style.display === 'block') menu.style.display = 'none';
+    }, 150);
+  };
+
+  button.addEventListener('click', clickEvent);
+  window.addEventListener('resize', resizeEvent);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (burger);
 
 /***/ }),
 
@@ -6232,7 +6286,8 @@ var modal = function modal(_ref) {
     return btn.addEventListener('click', buttonClickEvent);
   });
   closeBtns.forEach(function (closeBtn) {
-    return closeBtn.addEventListener('click', function () {
+    return closeBtn.addEventListener('click', function (e) {
+      e.preventDefault();
       Object(_closeModal__WEBPACK_IMPORTED_MODULE_1__["default"])(modal);
       open = false;
     });

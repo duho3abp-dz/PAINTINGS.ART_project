@@ -9,6 +9,7 @@ import stylesBlocks from './modules/stylesBlocks';
 import calculator from './modules/calculator';
 import filterElements from './modules/filterElements';
 import accordion from './modules/accordion';
+import burger from './modules/burger';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -80,6 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
         headingsIdentifier: '.accordion-heading',
         blocksIdentifier: '.accordion-block',
         headerActiveClass: 'ui-accordion-header-active'
+    });
+
+    burger({
+        buttonIdentifier: '[data-burger-button]',
+        menuIdentifier: '[data-burger-menu]',
+        maxWidth: 992
     });
 
     inputMask({ inputNameIdentifier: 'phone' });
