@@ -6278,6 +6278,7 @@ var modal = function modal(_ref) {
         var scrollHeight = +window.pageYOffset;
         var totalScrollHeight = windowHeight + scrollHeight;
         if (+bodyHeight === +totalScrollHeight && !click) openModal(modal);
+        if (removeButtonAfterOpening) btns[0].style.display = 'none';
       }, 300);
     });
   };

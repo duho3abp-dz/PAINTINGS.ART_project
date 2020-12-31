@@ -49,6 +49,7 @@ const modal = ({
                 const totalScrollHeight = windowHeight + scrollHeight;
     
                 if ( +bodyHeight === +totalScrollHeight && !click ) openModal(modal);
+                if (removeButtonAfterOpening) btns[0].style.display = 'none';
             }, 300);
         });
     };
