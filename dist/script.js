@@ -6255,12 +6255,12 @@ var modal = function modal(_ref) {
     document.body.style.overflow = 'hidden';
     open = true;
     if (!auto) click = true;
+    if (removeButtonAfterOpening) btns[0].style.display = 'none';
   };
 
   var buttonClickEvent = function buttonClickEvent(e) {
     e.preventDefault();
     openModal(modal);
-    if (removeButtonAfterOpening) e.currentTarget.style.display = 'none';
   };
 
   var modalAutoOpen = function modalAutoOpen() {
@@ -6278,7 +6278,6 @@ var modal = function modal(_ref) {
         var scrollHeight = +window.pageYOffset;
         var totalScrollHeight = windowHeight + scrollHeight;
         if (+bodyHeight === +totalScrollHeight && !click) openModal(modal);
-        if (removeButtonAfterOpening) btns[0].style.display = 'none';
       }, 300);
     });
   };

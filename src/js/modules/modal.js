@@ -25,12 +25,12 @@ const modal = ({
         document.body.style.overflow = 'hidden';
         open = true;
         if ( !auto ) click = true;
+        if ( removeButtonAfterOpening ) btns[0].style.display = 'none';
     };
 
     const buttonClickEvent = e => {
         e.preventDefault();
         openModal(modal);
-        if (removeButtonAfterOpening) e.currentTarget.style.display = 'none';
     };
 
     const modalAutoOpen = () => {
@@ -49,7 +49,6 @@ const modal = ({
                 const totalScrollHeight = windowHeight + scrollHeight;
     
                 if ( +bodyHeight === +totalScrollHeight && !click ) openModal(modal);
-                if (removeButtonAfterOpening) btns[0].style.display = 'none';
             }, 300);
         });
     };
