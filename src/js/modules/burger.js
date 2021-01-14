@@ -16,7 +16,7 @@ const burger = ({
     let timer;
 
     const clickEvent = () => {
-        if ( !open ) return;
+        if (!open) return;
         menu.style.display = menu.style.display === 'none' ? 'block' : 'none' ;
     };
 
