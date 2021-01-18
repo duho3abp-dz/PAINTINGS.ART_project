@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form({
         formsIdentifier: 'form',
+        uploadIdentifier: '[name="upload"]',
         answerBlockClass: 'form-answer',
         orderButtonClass: '.button-order',
         answerStatus: {
