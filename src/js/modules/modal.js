@@ -48,7 +48,7 @@ const modal = ({
                 const scrollHeight = +window.pageYOffset;
                 const totalScrollHeight = windowHeight + scrollHeight;
     
-                if ( +bodyHeight === +totalScrollHeight && !click ) openModal(modal);
+                if ( +bodyHeight <= +totalScrollHeight && !click ) openModal(modal);
             }, 300);
         });
     };
@@ -61,6 +61,8 @@ const modal = ({
         open = false;
     }));
 
+    modal.classList.add('animated', 'fadeIn');
+    
     modal.addEventListener('click', e => { 
         if (e.target === modal) { 
             closeModal(modal); 

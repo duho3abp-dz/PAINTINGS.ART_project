@@ -6277,7 +6277,7 @@ var modal = function modal(_ref) {
         var windowHeight = +window.innerHeight;
         var scrollHeight = +window.pageYOffset;
         var totalScrollHeight = windowHeight + scrollHeight;
-        if (+bodyHeight === +totalScrollHeight && !click) openModal(modal);
+        if (+bodyHeight <= +totalScrollHeight && !click) openModal(modal);
       }, 300);
     });
   };
@@ -6292,6 +6292,7 @@ var modal = function modal(_ref) {
       open = false;
     });
   });
+  modal.classList.add('animated', 'fadeIn');
   modal.addEventListener('click', function (e) {
     if (e.target === modal) {
       Object(_closeModal__WEBPACK_IMPORTED_MODULE_1__["default"])(modal);
