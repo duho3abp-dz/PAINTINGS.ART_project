@@ -77,13 +77,11 @@ const inputMask = ({ inputNameIdentifier }) => {
         input.setSelectionRange(cursorPosition, cursorPosition);
     };
 
-    const phoneMask = input => {
+    phoneInputs.forEach(input => {
         input.addEventListener('focus', focusPhoneEvent);
         input.addEventListener('input', inputPhoneEvent);
         input.addEventListener('blur',  blurPhoneEvent);
-    };
-
-    phoneInputs.forEach(input => phoneMask(input));
+    });
 };
 
 export default inputMask;

@@ -6458,14 +6458,10 @@ var inputMask = function inputMask(_ref) {
     input.setSelectionRange(cursorPosition, cursorPosition);
   };
 
-  var phoneMask = function phoneMask(input) {
+  phoneInputs.forEach(function (input) {
     input.addEventListener('focus', focusPhoneEvent);
     input.addEventListener('input', inputPhoneEvent);
     input.addEventListener('blur', blurPhoneEvent);
-  };
-
-  phoneInputs.forEach(function (input) {
-    return phoneMask(input);
   });
 };
 
