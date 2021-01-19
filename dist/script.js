@@ -6731,6 +6731,10 @@ var slider = function slider(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
 
 
 var stylesBlocks = function stylesBlocks(_ref) {
@@ -6738,17 +6742,20 @@ var stylesBlocks = function stylesBlocks(_ref) {
       stylesBlocksIdentifier = _ref.stylesBlocksIdentifier;
   var button = document.querySelector(loadingButtonIdentifier);
   var blocks = document.querySelectorAll(stylesBlocksIdentifier);
-  var blocksLength = blocks.length - 1;
   if (!button || !blocks.length) return;
-  var index = 0;
 
   var addBlock = function addBlock(e) {
     e.preventDefault();
-    blocks[index].style.display = 'block';
-    button.style.display = index === blocksLength ? 'none' : '';
-    index++;
+    blocks.forEach(function (block) {
+      block.classList.remove('hidden-lg', 'hidden-md', 'hidden-sm', 'hidden-xs', 'styles-2');
+      block.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
+    });
+    button.remove();
   };
 
+  blocks.forEach(function (block) {
+    return block.classList.add('animated', 'fadeInUp');
+  });
   button.addEventListener('click', addBlock);
 };
 
