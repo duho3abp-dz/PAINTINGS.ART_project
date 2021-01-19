@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     stylesBlocks({
         loadingButtonIdentifier : '[data-styles-button]',
-        stylesBlocksIdentifier: '.styles-2'
+        wrapperIdentifier: '[data-wrapper-styles-block]'
     });
 
     calculator({ 

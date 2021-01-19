@@ -1,70 +1,27 @@
 {
   "posts": [
+    
+  ],
+  "styles": [
     {
-      "name": "Данила",
-      "phone": "+7(432",
-      "id": 1
+      "src": "assets/img/styles-5.jpg",
+      "title": "Пастелью",
+      "link": "#pastel"
     },
     {
-      "name": "Данила",
-      "phone": "+7(999)999-99-9",
-      "id": 2
+      "src": "assets/img/styles-6.jpg",
+      "title": "Поп-арт",
+      "link": "#popart"
     },
     {
-      "upload": {},
-      "name": " Пррлвао",
-      "phone": "+7(899)875-43-23",
-      "email": "DanZhidkof@yandex.ru",
-      "message": "авпвапвапвапав",
-      "id": 3
+      "src": "assets/img/styles-7.png",
+      "title": "Фотомозаика",
+      "link": "#mozaika"
     },
     {
-      "upload": {},
-      "name": " аппававп",
-      "phone": "+7(899)999-99-99",
-      "email": "DanZhidkov@yandex.ru",
-      "message": "",
-      "id": 4
-    },
-    {
-      "upload": {},
-      "size": "50x70",
-      "material": "Льняной холст",
-      "options": "Экспресс-изготовление",
-      "promo": "",
-      "id": 5
-    },
-    {
-      "upload": {},
-      "size": "50x70",
-      "material": "Холст из волокна",
-      "options": "Экспресс-изготовление",
-      "promo": "",
-      "id": 6
-    },
-    {
-      "upload": {},
-      "name": "вваываыв",
-      "phone": "+7(543)534-54-35",
-      "email": "апвапва",
-      "message": "",
-      "id": 7
-    },
-    {
-      "upload": {},
-      "name": "апавп",
-      "phone": "+7(453)534-54-54",
-      "email": "gdfgfdgfd",
-      "message": "",
-      "id": 8
-    },
-    {
-      "upload": {},
-      "name": "впапв",
-      "phone": "+7(553)453-45-34",
-      "email": "",
-      "message": "",
-      "id": 9
+      "src": "assets/img/styles-8.jpg",
+      "title": "Шарж",
+      "link": "#sharj"
     }
   ]
 }

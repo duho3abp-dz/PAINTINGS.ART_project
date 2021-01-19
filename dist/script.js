@@ -661,6 +661,29 @@ module.exports = !fails(function () {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/create-html.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/core-js/internals/create-html.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "./node_modules/core-js/internals/require-object-coercible.js");
+
+var quot = /"/g;
+
+// B.2.3.2.1 CreateHTML(string, tag, attribute, value)
+// https://tc39.github.io/ecma262/#sec-createhtml
+module.exports = function (string, tag, attribute, value) {
+  var S = String(requireObjectCoercible(string));
+  var p1 = '<' + tag;
+  if (attribute !== '') p1 += ' ' + attribute + '="' + String(value).replace(quot, '&quot;') + '"';
+  return p1 + '>' + S + '</' + tag + '>';
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/create-iterator-constructor.js":
 /*!***********************************************************************!*\
   !*** ./node_modules/core-js/internals/create-iterator-constructor.js ***!
@@ -1170,6 +1193,27 @@ module.exports = function (KEY, length, exec, sham) {
     );
     if (sham) createNonEnumerableProperty(RegExp.prototype[SYMBOL], 'sham', true);
   }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/forced-string-html-method.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/core-js/internals/forced-string-html-method.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
+
+// check the existence of a method, lowercase
+// of a tag and escaping quotes in arguments
+module.exports = function (METHOD_NAME) {
+  return fails(function () {
+    var test = ''[METHOD_NAME]('"');
+    return test !== test.toLowerCase() || test.split('"').length > 3;
+  });
 };
 
 
@@ -4066,6 +4110,30 @@ defineIterator(String, 'String', function (iterated) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es.string.link.js":
+/*!********************************************************!*\
+  !*** ./node_modules/core-js/modules/es.string.link.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var createHTML = __webpack_require__(/*! ../internals/create-html */ "./node_modules/core-js/internals/create-html.js");
+var forcedStringHTMLMethod = __webpack_require__(/*! ../internals/forced-string-html-method */ "./node_modules/core-js/internals/forced-string-html-method.js");
+
+// `String.prototype.link` method
+// https://tc39.github.io/ecma262/#sec-string.prototype.link
+$({ target: 'String', proto: true, forced: forcedStringHTMLMethod('link') }, {
+  link: function link(url) {
+    return createHTML(this, 'a', 'href', url);
+  }
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es.string.replace.js":
 /*!***********************************************************!*\
   !*** ./node_modules/core-js/modules/es.string.replace.js ***!
@@ -5660,7 +5728,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   Object(_modules_stylesBlocks__WEBPACK_IMPORTED_MODULE_5__["default"])({
     loadingButtonIdentifier: '[data-styles-button]',
-    stylesBlocksIdentifier: '.styles-2'
+    wrapperIdentifier: '[data-wrapper-styles-block]'
   });
   Object(_modules_calculator__WEBPACK_IMPORTED_MODULE_6__["default"])({
     selectsIdentifier: '[data-calculator-select]',
@@ -6317,7 +6385,7 @@ var form = function form(_ref) {
     var formObj = Object.fromEntries(formData.entries());
     console.log(formObj);
     formButton.innerHTML += Object(_loading__WEBPACK_IMPORTED_MODULE_19__["default"])();
-    Object(_services_services__WEBPACK_IMPORTED_MODULE_17__["postData"])(formObj).then(function () {
+    Object(_services_services__WEBPACK_IMPORTED_MODULE_17__["postData"])('posts', formObj).then(function () {
       return createAnswerMask(actualForm, success, formModal);
     }).catch(function () {
       return createAnswerMask(actualForm, error, formModal);
@@ -6731,31 +6799,47 @@ var slider = function slider(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.concat */ "./node_modules/core-js/modules/es.array.concat.js");
+/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_string_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.string.link */ "./node_modules/core-js/modules/es.string.link.js");
+/* harmony import */ var core_js_modules_es_string_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_link__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/services */ "./src/js/services/services.js");
+
+
+
 
 
 
 
 var stylesBlocks = function stylesBlocks(_ref) {
   var loadingButtonIdentifier = _ref.loadingButtonIdentifier,
-      stylesBlocksIdentifier = _ref.stylesBlocksIdentifier;
+      wrapperIdentifier = _ref.wrapperIdentifier;
   var button = document.querySelector(loadingButtonIdentifier);
-  var blocks = document.querySelectorAll(stylesBlocksIdentifier);
-  if (!button || !blocks.length) return;
+  var wrapper = document.querySelector(wrapperIdentifier);
+  if (!button || !wrapper) return;
+
+  var renderBlock = function renderBlock(props) {
+    console.log(props);
+    props.forEach(function (_ref2) {
+      var src = _ref2.src,
+          title = _ref2.title,
+          link = _ref2.link;
+      var block = document.createElement('div');
+      block.classList.add('animated', 'fadeInUp', 'col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
+      block.innerHTML = "\n                <div class=styles-block>\n                    <img src=".concat(src, " alt>\n                    <h4>").concat(title, "</h4>\n                    <a href=").concat(link, ">\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435</a>\n                </div>\n            ");
+      wrapper.append(block);
+    });
+  };
 
   var addBlock = function addBlock(e) {
     e.preventDefault();
-    blocks.forEach(function (block) {
-      block.classList.remove('hidden-lg', 'hidden-md', 'hidden-sm', 'hidden-xs', 'styles-2');
-      block.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
+    Object(_services_services__WEBPACK_IMPORTED_MODULE_3__["getData"])('styles').then(function (props) {
+      return renderBlock(props);
     });
-    button.remove();
   };
 
-  blocks.forEach(function (block) {
-    return block.classList.add('animated', 'fadeInUp');
-  });
   button.addEventListener('click', addBlock);
 };
 
@@ -6767,12 +6851,13 @@ var stylesBlocks = function stylesBlocks(_ref) {
 /*!*************************************!*\
   !*** ./src/js/services/services.js ***!
   \*************************************/
-/*! exports provided: postData */
+/*! exports provided: postData, getData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getData", function() { return getData; });
 /* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "./node_modules/core-js/modules/es.object.to-string.js");
 /* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.promise */ "./node_modules/core-js/modules/es.promise.js");
@@ -6784,16 +6869,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _url = 'http://localhost:3000/posts';
+var _url = 'http://localhost:3000/';
 
-var postData = function postData(body) {
+var postData = function postData(path, body) {
   var resp;
   return regeneratorRuntime.async(function postData$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return regeneratorRuntime.awrap(fetch(_url, {
+          return regeneratorRuntime.awrap(fetch("".concat(_url).concat(path), {
             method: "POST",
             headers: {
               'Content-type': 'application/json'
@@ -6821,6 +6906,40 @@ var postData = function postData(body) {
         case 8:
         case "end":
           return _context.stop();
+      }
+    }
+  });
+};
+
+var getData = function getData(path) {
+  var resp;
+  return regeneratorRuntime.async(function getData$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return regeneratorRuntime.awrap(fetch("".concat(_url).concat(path)));
+
+        case 2:
+          resp = _context2.sent;
+
+          if (resp.ok) {
+            _context2.next = 5;
+            break;
+          }
+
+          throw new Error("Could not fetch ".concat(_url, ", status: ").concat(resp.status));
+
+        case 5:
+          _context2.next = 7;
+          return regeneratorRuntime.awrap(resp.json());
+
+        case 7:
+          return _context2.abrupt("return", _context2.sent);
+
+        case 8:
+        case "end":
+          return _context2.stop();
       }
     }
   });

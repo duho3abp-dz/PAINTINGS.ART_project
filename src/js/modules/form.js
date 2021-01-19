@@ -41,7 +41,7 @@ const form = ({
 
         formButton.innerHTML += loading();
 
-        postData(formObj)
+        postData('posts', formObj)
         .then(() => createAnswerMask(actualForm, success, formModal))
         .catch(() => createAnswerMask(actualForm, error, formModal))
         .finally(() => {

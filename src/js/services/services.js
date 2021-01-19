@@ -1,8 +1,8 @@
 'use strict'
-const _url = 'http://localhost:3000/posts';
+const _url = 'http://localhost:3000/';
 
-const postData = async body => {
-    const resp = await fetch(_url, {
+const postData = async (path, body) => {
+    const resp = await fetch(`${_url}${path}`, {
         method: "POST",
         headers: {
             'Content-type': 'application/json'
@@ -15,4 +15,12 @@ const postData = async body => {
     return await resp.json();
 };
 
-export {postData};
+const getData = async path => {
+    const resp = await fetch(`${_url}${path}`);
+
+    if (!resp.ok) throw new Error(`Could not fetch ${_url}, status: ${resp.status}`);
+
+    return await resp.json();
+};
+
+export { postData, getData };

@@ -1,26 +1,39 @@
 'use strict';
 
+import { getData } from '../services/services';
+
 const stylesBlocks = ({
     loadingButtonIdentifier,
-    stylesBlocksIdentifier
+    wrapperIdentifier
 }) => {
     const button = document.querySelector(loadingButtonIdentifier);
-    const blocks = document.querySelectorAll(stylesBlocksIdentifier);
+    const wrapper = document.querySelector(wrapperIdentifier);
 
-    if (!button || !blocks.length) return;
+    if ( !button || !wrapper ) return;
+
+    const renderBlock = props => {
+        console.log(props);
+        props.forEach(({src, title, link}) => {
+            const block = document.createElement('div');
+            block.classList.add('animated', 'fadeInUp', 'col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
+            block.innerHTML = `
+                <div class=styles-block>
+                    <img src=${src} alt>
+                    <h4>${title}</h4>
+                    <a href=${link}>Подробнее</a>
+                </div>
+            `;
+            wrapper.append(block);
+        });
+    };
 
     const addBlock = e => {
         e.preventDefault();
 
-        blocks.forEach(block => {
-            block.classList.remove('hidden-lg', 'hidden-md', 'hidden-sm', 'hidden-xs', 'styles-2');
-            block.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
-        });
-        
-        button.remove();
+        getData('styles')
+        .then(props => renderBlock(props));
     };
 
-    blocks.forEach(block => block.classList.add('animated', 'fadeInUp'));
     button.addEventListener('click', addBlock);
 };
 
