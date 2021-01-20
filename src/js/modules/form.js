@@ -36,14 +36,16 @@ const form = ({
         const formModal = actualForm.parentElement.parentElement.parentElement;
         const formButton = actualForm.querySelector(orderButtonClass);
         const formData = new FormData(actualForm);
-        const formObj = Object.fromEntries(formData.entries());
         const sizeSelect = actualForm.querySelector('[name="size"]');
         const materialSelect = actualForm.querySelector('[name="material"]');
+        const calcTotal = actualForm.querySelector('[name="total"]');
+
+        let formObj = Object.fromEntries(formData.entries());
 
         if ( 
             sizeSelect && sizeSelect.value === 'Выберите размер картины' ||
             materialSelect && materialSelect.value === 'Выберите материал картины'
-        ) return;
+        ) { return } else if ( calcTotal ) formObj = { ...formObj, total: calcTotal.textContent };
         
         console.log(formObj);
 
