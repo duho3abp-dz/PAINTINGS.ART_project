@@ -6821,14 +6821,13 @@ var stylesBlocks = function stylesBlocks(_ref) {
   if (!button || !wrapper) return;
 
   var renderBlock = function renderBlock(props) {
-    console.log(props);
     props.forEach(function (_ref2) {
       var src = _ref2.src,
           title = _ref2.title,
           link = _ref2.link;
       var block = document.createElement('div');
       block.classList.add('animated', 'fadeInUp', 'col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
-      block.innerHTML = "\n                <div class=styles-block>\n                    <img src=".concat(src, " alt>\n                    <h4>").concat(title, "</h4>\n                    <a href=").concat(link, ">\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435</a>\n                </div>\n            ");
+      block.innerHTML = "\n                <div class=styles-block>\n                    <img src=".concat(src, " alt=").concat(title, ">\n                    <h4>").concat(title, "</h4>\n                    <a href=").concat(link, ">\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435</a>\n                </div>\n            ");
       wrapper.append(block);
     });
   };
@@ -6837,6 +6836,8 @@ var stylesBlocks = function stylesBlocks(_ref) {
     e.preventDefault();
     Object(_services_services__WEBPACK_IMPORTED_MODULE_3__["getData"])('styles').then(function (props) {
       return renderBlock(props);
+    }).catch(function (error) {
+      return console.log(error);
     });
   };
 
