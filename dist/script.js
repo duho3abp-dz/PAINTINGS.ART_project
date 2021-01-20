@@ -6383,6 +6383,9 @@ var form = function form(_ref) {
     var formButton = actualForm.querySelector(orderButtonClass);
     var formData = new FormData(actualForm);
     var formObj = Object.fromEntries(formData.entries());
+    var sizeSelect = actualForm.querySelector('[name="size"]');
+    var materialSelect = actualForm.querySelector('[name="material"]');
+    if (sizeSelect && sizeSelect.value === 'Выберите размер картины' || materialSelect && materialSelect.value === 'Выберите материал картины') return;
     console.log(formObj);
     formButton.innerHTML += Object(_loading__WEBPACK_IMPORTED_MODULE_19__["default"])();
     Object(_services_services__WEBPACK_IMPORTED_MODULE_17__["postData"])('posts', formObj).then(function () {

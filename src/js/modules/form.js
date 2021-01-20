@@ -37,6 +37,14 @@ const form = ({
         const formButton = actualForm.querySelector(orderButtonClass);
         const formData = new FormData(actualForm);
         const formObj = Object.fromEntries(formData.entries());
+        const sizeSelect = actualForm.querySelector('[name="size"]');
+        const materialSelect = actualForm.querySelector('[name="material"]');
+
+        if ( 
+            sizeSelect && sizeSelect.value === 'Выберите размер картины' ||
+            materialSelect && materialSelect.value === 'Выберите материал картины'
+        ) return;
+        
         console.log(formObj);
 
         formButton.innerHTML += loading();
