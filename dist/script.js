@@ -6264,6 +6264,9 @@ var filterElements = function filterElements(_ref) {
     changeActiveTab(button);
   };
 
+  elements.forEach(function (elem) {
+    return elem.classList.add('animated', 'fadeIn');
+  });
   buttonsParent.addEventListener('click', clickEvent);
 };
 

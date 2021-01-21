@@ -22,13 +22,13 @@ const filterElements = ({
 
     const filterByName = name => {
         let blockElements = [];
+
         elements.forEach(element => {
             element.style.display = element.classList.contains(name) ? 'block' : 'none' ;
-
             if ( element.style.display !== 'block' ) return;
             blockElements = [ ...blockElements, element ];
         });
-
+        
         noContentBlock.style.display = blockElements.length ? 'none' : 'block';
     };
 
@@ -44,6 +44,7 @@ const filterElements = ({
         changeActiveTab(button);
     };
 
+    elements.forEach(elem => elem.classList.add('animated', 'fadeIn'));
     buttonsParent.addEventListener('click', clickEvent);
 };
 
