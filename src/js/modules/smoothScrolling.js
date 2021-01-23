@@ -1,9 +1,7 @@
 'use strict';
 
-const smoothScrolling = ({
-    linkSelectors
-}) => {
-    const links = document.querySelectorAll(linkSelectors);
+const smoothScrolling = ({ linkSelectors }) => {
+    const links = document.querySelectorAll( linkSelectors );
 
     if ( !links.length ) return;
 
@@ -11,16 +9,16 @@ const smoothScrolling = ({
 
     const scrolling = () => {
         height += step;
-        window.scrollTo(0, height < elementOffsetTop ? height : elementOffsetTop);
-        height < elementOffsetTop ?  window.requestAnimationFrame(scrolling) : height = 0;
+        window.scrollTo( 0, height < elementOffsetTop ? height : elementOffsetTop );
+        height < elementOffsetTop ?  window.requestAnimationFrame( scrolling ) : height = 0;
     };
 
-    links.forEach(link => link.addEventListener('click', function(e) {
+    links.forEach(link => link.addEventListener('click', function( e ) {
         e.preventDefault();
 
-        elementOffsetTop = document.querySelector(this.hash).offsetTop;
-        step = Math.floor(+elementOffsetTop / 20);
-        window.requestAnimationFrame(scrolling);
+        elementOffsetTop = document.querySelector( this.hash ).offsetTop;
+        step = Math.floor( +elementOffsetTop / 20 );
+        window.requestAnimationFrame( scrolling );
     }));
 };
 
