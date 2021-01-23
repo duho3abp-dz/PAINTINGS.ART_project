@@ -6847,19 +6847,23 @@ var smoothScrolling = function smoothScrolling(_ref) {
   if (!links.length) return;
   var elementOffsetTop,
       step,
-      height = 0;
+      height,
+      up = false;
 
   var scrolling = function scrolling() {
-    height += step;
-    window.scrollTo(0, height < elementOffsetTop ? height : elementOffsetTop);
-    height < elementOffsetTop ? window.requestAnimationFrame(scrolling) : height = 0;
+    height = height < elementOffsetTop ? height + step : height - step;
+    var condition = !up && height < elementOffsetTop || up && height > elementOffsetTop;
+    window.scrollTo(0, condition ? height : elementOffsetTop);
+    condition ? window.requestAnimationFrame(scrolling) : height = 0;
   };
 
   links.forEach(function (link) {
     return link.addEventListener('click', function (e) {
       e.preventDefault();
+      height = document.documentElement.scrollTop;
       elementOffsetTop = document.querySelector(this.hash).offsetTop;
-      step = Math.floor(+elementOffsetTop / 20);
+      up = height < elementOffsetTop ? false : true;
+      step = Math.floor((height < elementOffsetTop ? +elementOffsetTop : +height) / 20);
       window.requestAnimationFrame(scrolling);
     });
   });
