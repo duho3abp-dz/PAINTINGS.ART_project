@@ -5675,6 +5675,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_filterElements__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filterElements */ "./src/js/modules/filterElements.js");
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
 /* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
+/* harmony import */ var _modules_smoothScrolling__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/smoothScrolling */ "./src/js/modules/smoothScrolling.js");
+
 
 
 
@@ -5688,6 +5690,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 document.addEventListener('DOMContentLoaded', function () {
+  Object(_modules_smoothScrolling__WEBPACK_IMPORTED_MODULE_10__["default"])({
+    linkSelectors: '[data-smooth-sctolling]'
+  });
   Object(_modules_form__WEBPACK_IMPORTED_MODULE_2__["default"])({
     formsIdentifier: 'form',
     uploadIdentifier: '[name="upload"]',
@@ -6818,6 +6823,49 @@ var slider = function slider(_ref) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (slider);
+
+/***/ }),
+
+/***/ "./src/js/modules/smoothScrolling.js":
+/*!*******************************************!*\
+  !*** ./src/js/modules/smoothScrolling.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+
+var smoothScrolling = function smoothScrolling(_ref) {
+  var linkSelectors = _ref.linkSelectors;
+  var links = document.querySelectorAll(linkSelectors);
+  if (!links.length) return;
+  var elementOffsetTop,
+      step,
+      height = 0;
+
+  var scrolling = function scrolling() {
+    height += step;
+    window.scrollTo(0, height < elementOffsetTop ? height : elementOffsetTop);
+    height < elementOffsetTop ? window.requestAnimationFrame(scrolling) : height = 0;
+  };
+
+  links.forEach(function (link) {
+    return link.addEventListener('click', function (e) {
+      e.preventDefault();
+      elementOffsetTop = document.querySelector(this.hash).offsetTop;
+      step = Math.floor(+elementOffsetTop / 20);
+      window.requestAnimationFrame(scrolling);
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (smoothScrolling);
 
 /***/ }),
 

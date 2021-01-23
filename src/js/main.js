@@ -10,8 +10,13 @@ import calculator from './modules/calculator';
 import filterElements from './modules/filterElements';
 import accordion from './modules/accordion';
 import burger from './modules/burger';
+import smoothScrolling from './modules/smoothScrolling';
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    smoothScrolling({
+        linkSelectors: '[data-smooth-sctolling]'
+    });
 
     form({
         formsIdentifier: 'form',
