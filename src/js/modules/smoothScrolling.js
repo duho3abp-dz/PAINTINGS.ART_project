@@ -13,7 +13,7 @@ const smoothScrolling = ({ linkSelectors }) => {
         const condition = (!up && height < elementOffsetTop) || (up && height > elementOffsetTop);
 
         window.scrollTo( 0, condition ? height : elementOffsetTop );
-        condition ? window.requestAnimationFrame( scrolling ) : height = 0;
+        if ( condition ) window.requestAnimationFrame( scrolling );
     };
 
     links.forEach(link => link.addEventListener('click', function( e ) {
@@ -23,7 +23,7 @@ const smoothScrolling = ({ linkSelectors }) => {
         elementOffsetTop = document.querySelector( this.hash ).offsetTop;
         up = height < elementOffsetTop ? false : true ;
         step = Math.floor( (height < elementOffsetTop ? +elementOffsetTop : +height) / 20 );
-        
+
         window.requestAnimationFrame( scrolling );
     }));
 };

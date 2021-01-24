@@ -6854,7 +6854,7 @@ var smoothScrolling = function smoothScrolling(_ref) {
     height = height < elementOffsetTop ? height + step : height - step;
     var condition = !up && height < elementOffsetTop || up && height > elementOffsetTop;
     window.scrollTo(0, condition ? height : elementOffsetTop);
-    condition ? window.requestAnimationFrame(scrolling) : height = 0;
+    if (condition) window.requestAnimationFrame(scrolling);
   };
 
   links.forEach(function (link) {
