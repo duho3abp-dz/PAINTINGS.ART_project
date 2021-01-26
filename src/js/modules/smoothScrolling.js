@@ -1,11 +1,15 @@
 'use strict';
 
-const smoothScrolling = ({ linkSelectors }) => {
+const smoothScrolling = ({ 
+    linkSelectors,
+    pageUpElementSelector
+}) => {
     const links = document.querySelectorAll( linkSelectors );
+    const pageUpElement = document.querySelector( pageUpElementSelector );
 
-    if ( !links.length ) return;
+    if ( !links.length || (pageUpElementSelector && !pageUpElement) ) return;
 
-    let elementOffsetTop, step, height, up = false;
+    let elementOffsetTop, timer, step, height, up = false;
 
     const scrolling = () => {
         height = height < elementOffsetTop ?  height + step : height - step;
@@ -14,6 +18,21 @@ const smoothScrolling = ({ linkSelectors }) => {
 
         window.scrollTo( 0, condition ? height : elementOffsetTop );
         if ( condition ) window.requestAnimationFrame( scrolling );
+    };
+
+    const windowScrollPageUp = () => {
+        if ( +document.documentElement.scrollTop && !pageUpElement.classList.contains('active') ) {
+            pageUpElement.classList.add('active');
+        }
+
+        window.addEventListener('scroll', () => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                if ( +document.documentElement.scrollTop ) {
+                    if ( !pageUpElement.classList.contains('active') ) pageUpElement.classList.add('active');
+                } else pageUpElement.classList.remove('active');
+            }, 300);
+        })
     };
 
     links.forEach(link => link.addEventListener('click', function( e ) {
@@ -26,6 +45,8 @@ const smoothScrolling = ({ linkSelectors }) => {
 
         window.requestAnimationFrame( scrolling );
     }));
+
+    if ( pageUpElement ) windowScrollPageUp();
 };
 
 export default smoothScrolling;

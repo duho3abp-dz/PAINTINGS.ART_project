@@ -5691,7 +5691,8 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   Object(_modules_smoothScrolling__WEBPACK_IMPORTED_MODULE_10__["default"])({
-    linkSelectors: '[data-smooth-sctolling]'
+    linkSelectors: '[data-smooth-sctolling]',
+    pageUpElementSelector: '.pageup'
   });
   Object(_modules_form__WEBPACK_IMPORTED_MODULE_2__["default"])({
     formsIdentifier: 'form',
@@ -6842,10 +6843,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var smoothScrolling = function smoothScrolling(_ref) {
-  var linkSelectors = _ref.linkSelectors;
+  var linkSelectors = _ref.linkSelectors,
+      pageUpElementSelector = _ref.pageUpElementSelector;
   var links = document.querySelectorAll(linkSelectors);
-  if (!links.length) return;
+  var pageUpElement = document.querySelector(pageUpElementSelector);
+  if (!links.length || pageUpElementSelector && !pageUpElement) return;
   var elementOffsetTop,
+      timer,
       step,
       height,
       up = false;
@@ -6855,6 +6859,21 @@ var smoothScrolling = function smoothScrolling(_ref) {
     var condition = !up && height < elementOffsetTop || up && height > elementOffsetTop;
     window.scrollTo(0, condition ? height : elementOffsetTop);
     if (condition) window.requestAnimationFrame(scrolling);
+  };
+
+  var windowScrollPageUp = function windowScrollPageUp() {
+    if (+document.documentElement.scrollTop && !pageUpElement.classList.contains('active')) {
+      pageUpElement.classList.add('active');
+    }
+
+    window.addEventListener('scroll', function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        if (+document.documentElement.scrollTop) {
+          if (!pageUpElement.classList.contains('active')) pageUpElement.classList.add('active');
+        } else pageUpElement.classList.remove('active');
+      }, 300);
+    });
   };
 
   links.forEach(function (link) {
@@ -6867,6 +6886,7 @@ var smoothScrolling = function smoothScrolling(_ref) {
       window.requestAnimationFrame(scrolling);
     });
   });
+  if (pageUpElement) windowScrollPageUp();
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (smoothScrolling);

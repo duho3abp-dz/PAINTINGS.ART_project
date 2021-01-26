@@ -15,7 +15,8 @@ import smoothScrolling from './modules/smoothScrolling';
 document.addEventListener('DOMContentLoaded', () => {
 
     smoothScrolling({
-        linkSelectors: '[data-smooth-sctolling]'
+        linkSelectors: '[data-smooth-sctolling]',
+        pageUpElementSelector: '.pageup'
     });
 
     form({
