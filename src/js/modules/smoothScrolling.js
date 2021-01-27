@@ -1,8 +1,9 @@
 'use strict';
 
 const smoothScrolling = ({ 
-    linkSelectors,
-    pageUpElementSelector
+    linkSelectors = '[href^="#"]',
+    pageUpElementSelector,
+    speed = 20
 }) => {
     const links = document.querySelectorAll( linkSelectors );
     const pageUpElement = document.querySelector( pageUpElementSelector );
@@ -41,8 +42,9 @@ const smoothScrolling = ({
         height = document.documentElement.scrollTop;
         elementOffsetTop = document.querySelector( this.hash ).offsetTop;
         up = height < elementOffsetTop ? false : true ;
-        step = Math.floor( (height < elementOffsetTop ? +elementOffsetTop : +height) / 20 );
+        step = Math.floor( (height < elementOffsetTop ? +elementOffsetTop : +height) / speed );
 
+        history.replaceState( history.state, document.title, location.href.replace(/#.*$/g, '') + this.hash );
         window.requestAnimationFrame( scrolling );
     }));
 

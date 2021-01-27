@@ -1910,6 +1910,7 @@ button {
 }
 
 .pageup {
+  visibility: hidden;
   opacity: 0;
   width: 40px ;
   height: 40px;
@@ -1924,5 +1925,6 @@ button {
 }
 
 .pageup.active {
+  visibility: visible;
   opacity: 1;
 }

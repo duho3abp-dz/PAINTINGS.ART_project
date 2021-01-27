@@ -6836,15 +6836,21 @@ var slider = function slider(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "./node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 
 
 var smoothScrolling = function smoothScrolling(_ref) {
-  var linkSelectors = _ref.linkSelectors,
-      pageUpElementSelector = _ref.pageUpElementSelector;
+  var _ref$linkSelectors = _ref.linkSelectors,
+      linkSelectors = _ref$linkSelectors === void 0 ? '[href^="#"]' : _ref$linkSelectors,
+      pageUpElementSelector = _ref.pageUpElementSelector,
+      _ref$speed = _ref.speed,
+      speed = _ref$speed === void 0 ? 20 : _ref$speed;
   var links = document.querySelectorAll(linkSelectors);
   var pageUpElement = document.querySelector(pageUpElementSelector);
   if (!links.length || pageUpElementSelector && !pageUpElement) return;
@@ -6882,7 +6888,8 @@ var smoothScrolling = function smoothScrolling(_ref) {
       height = document.documentElement.scrollTop;
       elementOffsetTop = document.querySelector(this.hash).offsetTop;
       up = height < elementOffsetTop ? false : true;
-      step = Math.floor((height < elementOffsetTop ? +elementOffsetTop : +height) / 20);
+      step = Math.floor((height < elementOffsetTop ? +elementOffsetTop : +height) / speed);
+      history.replaceState(history.state, document.title, location.href.replace(/#.*$/g, '') + this.hash);
       window.requestAnimationFrame(scrolling);
     });
   });
