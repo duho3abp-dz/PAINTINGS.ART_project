@@ -5676,6 +5676,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
 /* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
 /* harmony import */ var _modules_smoothScrolling__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/smoothScrolling */ "./src/js/modules/smoothScrolling.js");
+/* harmony import */ var _modules_dragAndDrop__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/dragAndDrop */ "./src/js/modules/dragAndDrop.js");
+
 
 
 
@@ -5690,6 +5692,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 document.addEventListener('DOMContentLoaded', function () {
+  Object(_modules_dragAndDrop__WEBPACK_IMPORTED_MODULE_11__["default"])({
+    dropElementsSelector: '[name="upload"]'
+  });
   Object(_modules_smoothScrolling__WEBPACK_IMPORTED_MODULE_10__["default"])({
     linkSelectors: '[data-smooth-sctolling]',
     pageUpElementSelector: '.pageup'
@@ -6178,6 +6183,39 @@ var closeModal = function closeModal(elem) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (closeModal);
+
+/***/ }),
+
+/***/ "./src/js/modules/dragAndDrop.js":
+/*!***************************************!*\
+  !*** ./src/js/modules/dragAndDrop.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+
+var dragAndDrop = function dragAndDrop(_ref) {
+  var dropElementsSelector = _ref.dropElementsSelector;
+  var dropElements = document.querySelectorAll(dropElementsSelector);
+  if (!dropElements.length) return;
+  ['dragenter', 'dragleave', 'dragover', 'drag'].forEach(function (eventName) {
+    return dropElements.forEach(function (dropElement) {
+      return dropElement.addEventListener(eventName, function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (dragAndDrop);
 
 /***/ }),
 

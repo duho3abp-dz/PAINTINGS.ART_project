@@ -11,8 +11,13 @@ import filterElements from './modules/filterElements';
 import accordion from './modules/accordion';
 import burger from './modules/burger';
 import smoothScrolling from './modules/smoothScrolling';
+import dragAndDrop from './modules/dragAndDrop';
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    dragAndDrop({
+        dropElementsSelector: '[name="upload"]'
+    });
 
     smoothScrolling({
         linkSelectors: '[data-smooth-sctolling]',
