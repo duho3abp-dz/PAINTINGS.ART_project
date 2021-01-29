@@ -6205,11 +6205,12 @@ var dragAndDrop = function dragAndDrop(_ref) {
   var dropElementsSelector = _ref.dropElementsSelector;
   var dropElements = document.querySelectorAll(dropElementsSelector);
   if (!dropElements.length) return;
-  ['dragenter', 'dragleave', 'dragover', 'drag'].forEach(function (eventName) {
+  ['dragenter', 'dragleave', 'dragover', 'drop'].forEach(function (eventName) {
     return dropElements.forEach(function (dropElement) {
       return dropElement.addEventListener(eventName, function (e) {
         e.preventDefault();
         e.stopPropagation();
+        console.log('ok');
       });
     });
   });
