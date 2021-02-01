@@ -3,6 +3,7 @@
 import { postData } from '../services/services';
 import closeModal from './closeModal';
 import loading from './loading';
+import { changeSplitName, correctViewName } from './createFileName';
 
 const form = ({ 
     formsIdentifier, 
@@ -60,20 +61,6 @@ const form = ({
             upload.forEach(item => item.previousElementSibling.textContent = uploadDefaultText);
         });
     }
-
-    const changeSplitName = arr => {
-        return arr.reduce((res, str, ind) => {
-            return ind <= 0 ? [ str ] : ind >= arr.length - 1 
-                ? [ ...res, str ] : [ `${res}.${str}` ] ;
-        }, []);
-    };
-
-    const correctViewName = arr => {
-        return arr.reduce((res, str, ind) => {
-            const corrStr = str.length > 6 ? `${str.slice(0, 7)}...` : str ;
-            return ind <= 0 ? corrStr : `${res} .${str}` ;
-        }, '');
-    };
 
     const inputEvent = e => {
         const upload = e.target;

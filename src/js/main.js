@@ -16,7 +16,8 @@ import dragAndDrop from './modules/dragAndDrop';
 document.addEventListener('DOMContentLoaded', () => {
 
     dragAndDrop({
-        dropElementsSelector: '[name="upload"]'
+        dropElementsSelector: '[name="upload"]',
+        dropWrapSelector: '.file_upload'
     });
 
     smoothScrolling({

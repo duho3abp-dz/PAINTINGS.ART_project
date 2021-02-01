@@ -1928,3 +1928,7 @@ button {
   visibility: visible;
   opacity: 1;
 }
+
+.file_upload  {
+  transition: all .3s ease;
+}
