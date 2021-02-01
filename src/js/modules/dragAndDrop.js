@@ -36,8 +36,6 @@ const dragAndDrop = ({ dropElementsSelector, dropWrapSelector }) => {
 
             if (e.type === 'drop') dropEvent(e);
     })));
-
-
 };
 
 export default dragAndDrop;
